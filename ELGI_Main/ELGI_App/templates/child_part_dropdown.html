@@ -1,0 +1,309 @@
+{% load static %}
+{% include 'general/main.html' %}
+<head>
+
+
+    {% include 'general/title_meta.html' %}
+    <!-- plugin css -->
+    <link href="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css"/>
+
+     <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+
+    {% include 'general/head_css.html' %}
+
+</head>
+{% include 'general/body.html' %}
+<!-- Begin page -->
+<div id="layout-wrapper">
+{% include 'general/menu.html' %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Child Part Dropdown</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Child Part</a></li>
+                                    <li class="breadcrumb-item active">Child Part Dropdown</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                  <!-- child_part_dropdown page start -->
+                 <!-- table start-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                           <!-- <div class="card-header">
+                                <h4 class="card-title">Default Datatable</h4>
+
+                            </div>-->
+                            <div class="card-body">
+                                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Line Code</th>
+                                            <th>Child Part Code</th>
+                                            <th>Parameter</th>
+                                            <th>Dropdown Code</th>
+                                            <th>Dropdown String</th>
+
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Beltmake</td>
+                                            <td>1</td>
+                                            <td>Belt_Make1</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>EL1_P1_L1</td>
+                                            <td>CP_BELT_DETAILS</td>
+                                            <td>Make</td>
+                                            <td>2</td>
+                                            <td>EG11</td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- table end-->
+                <!-- table start -->
+                   <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Position</th>
+                                                <th>Office</th>
+                                                <th>Age</th>
+                                                <th>Start date</th>
+                                                <th>Salary</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                            <tr>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+                                                <td>2011/04/25</td>
+                                                <td>Rs.320,800</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Garrett Winters</td>
+                                                <td>Accountant</td>
+                                                <td>Tokyo</td>
+                                                <td>63</td>
+                                                <td>2011/07/25</td>
+                                                <td>Rs.170,750</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Donna Snider</td>
+                                                <td>Customer Support</td>
+                                                <td>New York</td>
+                                                <td>27</td>
+                                                <td>2011/01/25</td>
+                                                <td>Rs.112,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- end cardaa -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                <!-- table end -->
+                <!-- child_part_dropdown page end-->
+
+
+            </div>
+            <!--End  container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        {% include 'general/footer.html' %}
+    </div>
+    <!-- end main content-->
+</div>
+<!-- END layout-wrapper -->
+
+{% include 'general/right_side_bar.html' %}
+{% include 'general/vendor_script.html' %}
+
+
+
+<!-- Required datatable js -->
+<script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<!-- Buttons examples -->
+<script src="{%static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{%static 'libs/jszip/jszip.min.js' %}"></script>
+<script src="{%static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{%static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+<!-- Responsive examples -->
+<script src="{%static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!-- Datatable init js -->
+<script src="{%static 'js/pages/datatables.init.js' %}"></script>
+<script src="{%static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

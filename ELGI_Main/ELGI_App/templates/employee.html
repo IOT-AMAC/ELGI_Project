@@ -1,0 +1,218 @@
+{% load static %}
+{% include 'general/main.html' %}
+<head>
+
+
+    {% include 'general/title_meta.html' %}
+    <!-- plugin css -->
+    <link href="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css"/>
+
+
+
+     <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    {% include 'general/head_css.html' %}
+
+</head>
+{% include 'general/body.html' %}
+<!-- Begin page -->
+<div id="layout-wrapper">
+{% include 'general/menu.html' %}
+
+     <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                {% include 'general/page_title.html' %}
+                <!-- company page start -->
+               <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-pills nav-justified" role="tablist">
+                                    <li class="nav-item waves-effect waves-light">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#employesedetails" role="tab">
+                                            <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                            <span class="d-none d-sm-block">Employee Details</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content p-3 text-muted">
+                                    <div class="tab-pane active" id="employesedetails" role="tabpanel">
+                                        <!-- form start -->
+                                        <form method="post">
+                                             {% csrf_token %}
+                                            <div class="row">
+                                                <!-- left column strat -->
+                                                <div class="col-lg-6 ms-lg-auto">
+                                                    <div class="mt-4 mt-lg-0">
+                                                        <div class="row mb-4">
+                                                            <label for="sub_station_code" class="col-sm-3 col-form-label">Company Code</label>
+                                                            <div class="col-sm-9">
+                                                                <select name="line-code" id="linecode" class="form-control">
+                                                                    <option value="EL1">EL1</option>
+                                                                    <option value="EL2">EL2</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="row mb-4">
+                                                            <label for="st_operator_code" class="col-sm-3 col-form-label">Emp ID</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="email" class="form-control" id="st_operator_code" name="emp_id">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mb-4">
+                                                            <label for="st_operator_code" class="col-sm-3 col-form-label">Emp Name</label>
+                                                            <div class="col-sm-9">
+                                                                <input type="email" class="form-control" id="st_operator_code" name="emp_name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- left column end -->
+                                                <!-- right column start -->
+
+                                                <div class="col-lg-6 ms-lg-auto">
+                                                    <div class="mt-4 mt-lg-0">
+
+                                                            <div class="row mb-4">
+                                                                <label class="col-sm-3 col-form-label">Photo Path</label>
+                                                                <div class="col-sm-9">
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="photo_path">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mb-4">
+                                                                <label for="skill_required" class="col-sm-3 col-form-label">User Name</label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="text" class="form-control" id="skill_required" name="name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mb-4">
+                                                                <label for="skill_required" class="col-sm-3 col-form-label">Password</label>
+                                                                <div class="col-sm-9">
+                                                                    <input type="text" class="form-control" id="skill_required" name="pwd">
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <!-- right column end-->
+                                            </div>
+
+
+                                        <div class="row justify-content-end">
+                                            <div class="col-sm-9">
+                                                <div>
+                                                    <button type="submit" class="btn btn-primary w-md" id="addbtn" >Add</button>
+                                                    <button type="submit" class="btn btn-primary w-md" id="updatebtn">Update</button>
+                                                    <button type="submit" class="btn btn-primary w-md" id="clearbtn">Clear</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </form>
+                                            <!-- form end -->
+                                        <!-- table start-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Company Code</th>
+                                                                    <th>Emp ID</th>
+                                                                    <th>Emp Name</th>
+                                                                    <th>Role Code</th>
+                                                                    <th>Emp Photo Path</th>
+                                                                    <th>Username</th>
+                                                                    <th>Password</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for i in employee_data%}
+                                                                <tr>
+                                                                    <td>{{forloop.counter}}</td>
+                                                                    <td>{{i.Company_Code}}</td>
+                                                                    <td>{{i.Emp_ID}}</td>
+                                                                    <td>{{i.Emp_Name}}</td>
+                                                                    <td>{{i.Role_Code}} </td>
+                                                                    <td>{{i.Emp_Photo_Path}}</td>
+                                                                    <td>{{i.User_Name}}</td>
+                                                                    <td>{{i.Password}}</td>
+                                                                </tr>
+                                                            {% endfor %}
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end col -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end card-body -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div>
+            <!--End  container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        {% include 'general/footer.html' %}
+    </div>
+    <!-- end main content-->
+</div>
+<!-- END layout-wrapper -->
+
+{% include 'general/right_side_bar.html' %}
+{% include 'general/vendor_script.html' %}
+
+
+
+
+        <!-- Required datatable js -->
+        <script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+        <!-- Buttons examples -->
+        <script src="{%static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+        <script src="{%static 'libs/jszip/jszip.min.js' %}"></script>
+        <script src="{%static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+        <script src="{%static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+        <!-- Responsive examples -->
+        <script src="{%static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+        <!-- Datatable init js -->
+        <script src="{%static 'js/pages/datatables.init.js' %}"></script>
+        <script src="{%static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

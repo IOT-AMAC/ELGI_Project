@@ -1,0 +1,143 @@
+{% load static %}
+<!-- Bootstrap Css -->
+<link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<!-- Icons Css -->
+<link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- App Css-->
+<link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+<header id="page-topbar" style="background-color:#b7deb8">
+    <div class="navbar-header" style="background-color:#b7deb8" >
+            <!-- LOGO -->
+            <div class="dropdown d-inline-block">
+                <h2 class="d-none d-xl-inline-block ms-3 fw-medium">PDI Inspection</h2>
+            </div>
+            <div class="d-flex" style="background-color:#fff" >
+                    <div class="position-relative">
+                    <img src="{% static 'images/logo.png' %}" alt="" height="38">
+                    </div>
+            </div>
+        
+    </div>
+</header>
+
+    <div class="page-content">
+            <div class="row">
+                    
+                    <div class="row ms-1 mb-2">
+                        
+                        <div class="text-light col-xl-10 rounded" style="background-color:#3e3e3e;" >
+                            <div class="row">
+                                <div class="col-xl-1 my-2 ms-2">
+                                    <div class="row">
+                                        <div class="position-absolute top-50 start-50 translate-middle">
+                                            <img src="{% static 'images/earth.jpg' %}" alt="" height="100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-10 mt-2 ms-3">
+                                    <div class="row fs-6">
+                                        <div class="col-xl-6">
+                                            <ul>
+                                                <li class="list-inline-item">Emp. Name : </li>
+                                                <li class="list-inline-item">Dinesh S</li>
+                                            </ul>
+                                            <ul>
+                                                <li class="list-inline-item">Emp. ID : </li>
+                                                <li class="list-inline-item">3400</li>
+                                            </ul>
+                                            <ul>
+                                                <li class="list-inline-item">Skill level : </li>
+                                                <li class="list-inline-item">10</li>
+                                            </ul>
+                                            <ul>
+                                                <li class="list-inline-item">Description : </li>
+                                                <li class="list-inline-item">TESTING</li>
+                                            </ul>
+                                            
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <ul>
+                                                <li class="list-inline-item">FAB : </li>
+                                                <li class="list-inline-item">BSIS038928</li>
+                                            </ul>
+                                            <ul>
+                                                <li class="list-inline-item">Model : </li>
+                                                <li class="list-inline-item">EG 37 - 8.5 - 60 this is description</li>
+                                            </ul>
+                                            <ul>
+                                                <li class="list-inline-item">TPL : </li>
+                                                <li class="list-inline-item">S123456</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-xl-1 text-center ms-3 rounded" style="background-color:#3e3e3e;">
+                            <div class="row mx-1">
+                                <div class="my-1 text-light">
+                                    <label class="my-1 fs-5 font-weight-bold">Cycle </label>
+                                    <br>
+                                    <label class="my-1">00:08 </label>
+                                    <br>
+                                    <label class="my-1">01:00 </label>
+                                    <br>
+                                    <label class="my-1 fs-5 font-weight-bold">Count </label>
+                                    <br>
+                                    <label class="my-1"> 0/4</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <div class="row mx-1 mb-2">
+                    
+                    <div class="text-light col-xl-12 rounded" >
+                        <div class="row">
+                            
+                            <div class="col-xl-12 mt-1">
+                                <div class="row fs-6">
+                                    <div class="col-xl-6">
+                                        <div class="row">
+                                            <div class="mb-2 rounded" style="background-color:#3e3e3e;">
+                                                <label class="fs-3"> Tool ID :  </label>
+                                                <label class="fs-4"> RIO-DI-1-T01 </label>
+                                                <label class="fs-3 ms-5"> Bolt Count :  </label>
+                                                <label class="fs-4"> 3 </label>
+                                                <label class="fs-3 ms-5"> Actual </label>
+                                            </div>
+                                            <div class="mb-2 rounded mh-100" style="background-color:#3e3e3e;">
+                                                <p>
+                                                    <button type = "button" class = "btn btn-primary btn-lg btn-block">
+                                                        Tool Lock
+                                                    </button>
+                                                </p>
+                                                <p class="mx-3 my-3"> Bolt 1 </p>
+                                                <p class="mx-3 my-3"> Bolt 2 </p>
+                                                <p class="mx-3 my-3"> Bolt 3 </p>
+                                                <p class="mx-3 my-3"> Bolt 4 </p>
+                                                <p class="mx-3 my-3"> Bolt 5 </p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="row ">
+                                            <button type="button" class="btn-lg btn-outline-danger btn-rounded btn-block mb-1 ms-1" data-bs-toggle="modal">
+                                                UNIT SKIP
+                                            </button>
+                                            <div class="mb-2 rounded ms-1" >
+                                                <img class="my-2" src="{% static 'images/1.jpg' %}" alt="" height="300" width="570">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            
+            </div>
+    </div>

@@ -1,0 +1,59 @@
+{% load static %}
+{% include 'general/main.html' %}
+<head>
+
+
+    {% include 'general/title_meta.html' %}
+    <!-- plugin css -->
+    <link href="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css"/>
+
+
+    {% include 'general/head_css.html' %}
+
+</head>
+{% include 'general/body.html' %}
+<!-- Begin page -->
+<div id="layout-wrapper">
+{% include 'general/menu.html' %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                {% include 'general/page_title.html' %}
+                  <!-- holiday page start -->
+                holiday page
+                <!-- holiday page end-->
+
+
+            </div>
+            <!--End  container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        {% include 'general/footer.html' %}
+    </div>
+    <!-- end main content-->
+</div>
+<!-- END layout-wrapper -->
+
+{% include 'general/right_side_bar.html' %}
+{% include 'general/vendor_script.html' %}
+
+<!-- apexcharts -->
+<script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+<!-- Plugins js-->
+<script src="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js' %}"></script>
+<script src="{% static 'libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js' %}"></script>
+<!-- dashboard init -->
+<script src="{% static 'js/pages/dashboard.init.js' %}"></script>
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

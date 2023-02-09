@@ -1,0 +1,199 @@
+{% load static %}
+<!-- Bootstrap Css -->
+<link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<!-- Icons Css -->
+<link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- App Css-->
+<link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+<header id="page-topbar" style="background-color:#b7deb8">
+    <div class="navbar-header" style="background-color:#b7deb8" >
+            <!-- LOGO -->
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <h2 class="d-none d-xl-inline-block ms-1 fw-medium">Alpha Line-Sub Station</h2>
+                </button>
+            </div>
+        <div class="d-flex" style="background-color:#fff" >
+            <span class="app-search d-none d-lg-block" >
+                <div class="position-relative">
+                   <img src="{% static 'images/logo.png' %}" alt="" height="40">
+                </div>
+            </span>
+        </div>
+            
+        </div>
+    </div>
+</header>
+
+                {% include 'general/page_title.html' %}
+            <div class="container-fluid">
+
+                <!-- company page start -->
+               <div class="row">
+                    <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content p-3 text-muted">
+                                            <div class="row mb-2">
+                                                <div class="text-light col-xl-10 rounded" style="background-color:#3e3e3e;" >
+                                                    <div class="row">
+                                                        <div class="col-xl-1 my-2 ms-2">
+                                                            <div class="row">
+                                                                <div class="position-absolute top-50 start-50 translate-middle">
+                                                                    <img src="{% static 'images/earth.jpg' %}" alt="" height="100">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-10 mt-2 ms-3">
+                                                            <div class="row fs-6">
+                                                                <div class="col-xl-6">
+                                                                    <ul>
+                                                                        <li class="list-inline-item">Emp. Name : </li>
+                                                                        <li class="list-inline-item">Dinesh S</li>
+                                                                    </ul>
+                                                                    <ul>
+                                                                        <li class="list-inline-item">Emp. ID : </li>
+                                                                        <li class="list-inline-item">3400</li>
+                                                                    </ul>
+                                                                    <ul>
+                                                                        <li class="list-inline-item">Skill level : </li>
+                                                                        <li class="list-inline-item">10</li>
+                                                                    </ul>
+                                                                    <ul>
+                                                                        <li class="list-inline-item">Process : </li>
+                                                                        <li class="list-inline-item"> AIREMD_TEST </li>
+                                                                    </ul>
+                                                                    
+                                                                </div>
+                                                                <div class="col-xl-6">
+                                                                    <ul>
+                                                                        <li class="list-inline-item">FAB : </li>
+                                                                        <li class="list-inline-item"> BSIS038928 </li>
+                                                                    </ul>
+                                                                    <ul>
+                                                                        <li class="list-inline-item">Model : </li>
+                                                                        <li class="list-inline-item"> EG 37 - 8.5 - 60 </li>
+                                                                    </ul>
+                                                                    <ul>
+                                                                        <li class="list-inline-item">TPL : </li>
+                                                                        <li class="list-inline-item"> S123456 </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                
+                                                <div class="col-xl-1 text-center mx-3 rounded" style="background-color:#3e3e3e;">
+                                                    <div class="row mx-1">
+                                                        <div class="my-1 text-light">
+                                                            <label class="my-1 font-weight-bold">Cycle Time </label>
+                                                            <label class="my-1">00:08 </label>
+                                                            <label class="my-1 font-weight-bold">Actual Time </label>
+                                                            <label class="my-1"> 00:15</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- table start-->
+                                            <div class="row">
+                                            <div class="col-12">
+                                            <div class="card">
+                                                <h4 class='mx-3 my-2'> Order Release </h4>
+                                                <div class="card-body">
+                                                    
+                                                    <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>TPL No.</th>
+                                                                        <th>FAB_NO</th>
+                                                                        <th>Release_Date</th>
+                                                                        <th>TPL_Description</th>
+                                                                    </tr>
+                                                                </thead>
+
+
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>1</th>
+                                                                        <td>S500213</td>
+                                                                        <td>BIGS044706</td>
+                                                                        <td>03/01/2023 11:16AM</td>
+                                                                        <td>EG22-C-50 this is Description</td>
+                                                                        
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>2</th>
+                                                                        <td>S501313</td>
+                                                                        <td>BIGS044707</td>
+                                                                        <td>03/01/2023 11:18AM</td>
+                                                                        <td>EG37-C-50 this is Description</td>
+                                                                        
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>3</th>
+                                                                        <td>S504913</td>
+                                                                        <td>BIGS044809</td>
+                                                                        <td>03/01/2023 11:19AM</td>
+                                                                        <td>EG22-C-50 this is Description</td>
+                                                                        
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>4</th>
+                                                                        <td>S501813</td>
+                                                                        <td>BIGS054806</td>
+                                                                        <td>03/01/2023 12:02PM</td>
+                                                                        <td>EG15-C-50 this is Description</td>
+                                                                        
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        
+                                                        <h4 class='mx-3 my-2'> Error </h4>
+                                                        <div class="card-body">
+                                                            <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>TPL No.</th>
+                                                                                <th>FAB_NO</th>
+                                                                                <th>Release_Date</th>
+                                                                                <th>TPL_Description</th>
+                                                                            </tr>
+                                                                        </thead>
+
+
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th>1</th>
+                                                                                <td>S500213</td>
+                                                                                <td>BIGS044706</td>
+                                                                                <td>03/01/2023 11:16AM</td>
+                                                                                <td>EG22-C-50 this is Description</td>
+                                                                                
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- end col -->
+                                            </div>
+                                        
+                                    </div>
+                                </div><!-- end card-body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+            
+        <!-- End Page-content -->
+
+    </div>
+            

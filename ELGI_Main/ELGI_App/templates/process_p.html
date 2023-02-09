@@ -1,0 +1,153 @@
+{% load static %}
+<!-- Bootstrap Css -->
+<link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<!-- Icons Css -->
+<link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+<!-- App Css-->
+<link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+<header id="page-topbar" style="background-color:#b7deb8">
+    <div class="navbar-header" style="background-color:#b7deb8">
+        <!-- LOGO -->
+        <div class="dropdown d-inline-block">
+            <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <h2 class="d-none d-xl-inline-block ms-1 fw-medium">Alpha Line-Sub Station</h2>
+                </button>
+        </div>
+        <div class="d-flex" style="background-color:#fff">
+            <span class="app-search d-none d-lg-block">
+                <div class="position-relative">
+                   <img src="{% static 'images/logo.png' %}" alt="" height="40">
+                </div>
+            </span>
+        </div>
+
+    </div>
+    </div>
+</header>
+<style>
+    .flex-container {
+        display: flex;
+        flex-wrap: nowrap;
+        background-color: rgb(250, 250, 250);
+    }
+    
+    .flex-container>div {
+        background-color: #ffffff;
+        width: 100%;
+        margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px;
+        border-color: black;
+    }
+</style>
+<div class="container-fluid">
+
+    {% include 'general/page_title.html' %}
+    <!-- company page start -->
+    <div class="row">
+
+
+        <div class="col-xl-12">
+            <div class="card">
+                <!-- <div class="card-header">
+                                     <h4 class="card-title">Justify Tabs</h4>
+                                        <p class="card-title-desc"></p>
+                                    </div>-->
+                <!-- end card header -->
+
+                <div class="card-body">
+
+                    <!-- Tab panes -->
+                    <div class="tab-content p-3 text-muted">
+                        <div class="tab-pane active" id="employesedetails" role="tabpanel">
+                            <!-- form start -->
+                            <form>
+                                <div class="row">
+
+
+                                </div>
+                            </form>
+
+                            <!-- form end -->
+                            <!-- table start-->
+                            <div class="row ">
+                                <div class="col-md-12 d-flex">
+                                    <div class="col-md-9 d-flex">
+
+                                        <div class="col-md-4">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">First</th>
+                                                        <th scope="col">Last</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Mark</td>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>inpur</td>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-4" style="margin-top:45px;">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <div class="d-flex">
+
+                                            <div class="">
+                                                <div class="">
+                                                    Waste Capture
+                                                </div>
+                                                <button>P</button>
+                                                <button class="mx-5">Q</button>
+                                            </div>
+                                            <div class="mx-3 row">
+                                                <button>
+                                                    LOGOUT
+                                                </button>
+                                                <button>
+                                                    UNIT SKIP
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <img src="../static/images/logo.png" alt="" style="height: 30%; width: 100%;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end card-body -->
+</div>
+<!-- end card -->
+</div>
+<!-- end col -->
+</div>
+<!-- end row -->
+
+<!-- End Page-content -->
+
+</div>

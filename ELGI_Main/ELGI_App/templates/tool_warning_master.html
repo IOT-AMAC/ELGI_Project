@@ -1,0 +1,202 @@
+{% load static %}
+{% include 'general/main.html' %}
+<head>
+
+
+    {% include 'general/title_meta.html' %}
+    <!-- plugin css -->
+    <link href="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css"/>
+
+
+
+     <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    {% include 'general/head_css.html' %}
+
+</head>
+{% include 'general/body.html' %}
+<!-- Begin page -->
+<div id="layout-wrapper">
+{% include 'general/menu.html' %}
+
+     <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                {% include 'general/page_title.html' %}
+                <!-- company page start -->
+               <div class="row">
+
+
+                            <div class="col-xl-12">
+                                <div class="card">
+                                      <!-- <div class="card-header">
+                                     <h4 class="card-title">Justify Tabs</h4>
+                                        <p class="card-title-desc"></p>
+                                    </div>--><!-- end card header -->
+
+                                    <div class="card-body">
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-pills nav-justified" role="tablist">
+                                            <li class="nav-item waves-effect waves-light">
+                                                <a class="nav-link active" data-bs-toggle="tab" href="#employesedetails" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                                                    <span class="d-none d-sm-block">Tool Warning Master</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content p-3 text-muted">
+                                            <div class="tab-pane active" id="employesedetails" role="tabpanel">
+                                                <!-- form start -->
+                                                <form>
+                                                <div class="row">
+
+                                                        <!-- left column strat -->
+                                                        <div class="col-lg-6 ms-lg-auto">
+                                                            <div class="mt-4 mt-lg-0">
+
+
+                                                                    <div class="row mb-4">
+                                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Tool ID</label>
+                                                                        <div class="col-sm-9">
+                                                                          <select name="line-code" id="linecode" class="form-control">
+                                                                                <option value="">C1-T01-AP02</option>
+                                                                                <option value="">C1-T01-AP01</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row mb-4">
+                                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Warning Type</label>
+                                                                        <div class="col-sm-9">
+                                                                          <select name="line-code" id="linecode" class="form-control">
+                                                                                <option value="">By Duration</option>
+                                                                                <option value="">On Process</option>
+                                                                                <option value="">After Process</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- left column end -->
+                                                        <!-- right column start -->
+
+                                                        <div class="col-lg-6 ms-lg-auto">
+
+                                                        </div>
+                                                        <!-- right column end-->
+
+
+                                                </div>
+                                                </form>
+                                                <div class="row justify-content-end">
+                                                                        <div class="col-sm-9">
+                                                                            <div>
+                                                                                <button type="submit" class="btn btn-primary w-md">Modify</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                <!-- form end -->
+                                                <!-- table start-->
+                                                <div class="row">
+                                                <div class="col-12">
+                                                <div class="card">
+
+                                                    <div class="card-body">
+                                                        <table id="datatable" class="table table-bordered dt-responsive w-100">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Line Code</th>
+                                                                            <th>PK Code</th>
+                                                                            <th>Tool ID</th>
+                                                                            <th>Warning Type</th>
+                                                                            <th>Set Frequency</th>
+                                                                            <th>Act Frequency</th>
+                                                                            <th>Created Date</th>
+                                                                            <th>Reset Date</th>
+                                                                            <th>Warning Status</th>
+                                                                            <th>Duration Date</th>
+
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    {% for i in twm_data %}
+                                                                        <tr>
+                                                                            <td>{{forloop.counter}}</td>
+                                                                            <td>{{i.Line_Code}}</td>
+                                                                            <td>{{i.PK_Code}}</td>
+                                                                            <td>{{i.Tool_ID}}</td>
+                                                                            <td>{{i.Warning_Type}}</td>
+                                                                            <td>{{i.Set_Frequency}}</td>
+                                                                            <td>{{i.Act_Frequency}}</td>
+                                                                            <td>{{i.Created_Date}}</td>
+                                                                            <td>{{i.Reset_Date}}</td>
+                                                                            <td>{{i.Warning_Status}}</td>
+                                                                            <td>{{i.Duration_Date}}</td>
+                                                                        </tr>
+                                                                    {% endfor %}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- end col -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- end card-body -->
+                                </div><!-- end card -->
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+            </div>
+            <!--End  container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+        {% include 'general/footer.html' %}
+    </div>
+    <!-- end main content-->
+</div>
+<!-- END layout-wrapper -->
+
+{% include 'general/right_side_bar.html' %}
+{% include 'general/vendor_script.html' %}
+
+
+
+
+        <!-- Required datatable js -->
+        <script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+        <!-- Buttons examples -->
+        <script src="{%static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+        <script src="{%static 'libs/jszip/jszip.min.js' %}"></script>
+        <script src="{%static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+        <script src="{%static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+        <!-- Responsive examples -->
+        <script src="{%static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+        <script src="{%static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+        <!-- Datatable init js -->
+        <script src="{%static 'js/pages/datatables.init.js' %}"></script>
+        <script src="{%static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
