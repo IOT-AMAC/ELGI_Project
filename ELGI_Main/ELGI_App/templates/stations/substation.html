@@ -1,0 +1,1615 @@
+{% load static %}
+{% include 'general/main.html' %}
+<head>
+
+
+    {% include 'general/title_meta.html' %}
+    <!-- plugin css -->
+    <link href="{% static 'libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css"/>
+
+
+
+     <!-- DataTables -->
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+    {% comment %} <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
+    rel="stylesheet"
+    /> {% endcomment %}
+    <!-- Responsive datatable examples -->
+    <link href="{% static 'libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    {% include 'general/head_css.html' %}
+
+
+    <style>
+        .scrollme {
+            overflow-x: auto;
+        }
+        hidden-panel {
+            display: none;
+        }
+        .data_pointer
+        {
+            cursor:pointer;
+
+        }
+        td:hover
+        {
+            color:#ee3420;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+
+</head>
+{% include 'general/body.html' %}
+<!-- Begin page -->
+<div id="layout-wrapper">
+{% include 'general/menu.html' %}
+
+{# {% load django_browser_reload %} #}
+
+     <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 font-size-18">Alpha Line-Sub Station 1</h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Alpha Line-Sub Station
+                                            1</a></li>
+                                    <li class="breadcrumb-item active">Alpha Line-Sub Station 1</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <!-- alpha page start -->
+
+
+
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="card bg-dark border-dark text-light">
+                            <div class="card-body">
+                                <div class="row ">
+                                    <div class="col-md-2">
+                                        <img style="height: 100%;" class="img-fluid mx-auto d-block rounded"
+                                            src="{% static 'images/users/Venkatesan.jpg' %}" alt="Card image">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 text-white-50 mb-1">Emp. Name</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 text-white-50 mb-1">Emp. ID</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 text-white-50 mb-1">Skill Level
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div  class="col-xl-12 font-size-15 text-white-50 ">Process</div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 mb-1">{{employee_details.Emp_Name}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 mb-1">{{employee_details.Emp_ID}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 mb-1">{{employee_details.Skill_level}}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div id="processname" class="col-xl-12 font-size-13 mb-1">{{process_seq.Process_Desc}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <br>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 text-white-50 mb-1">FAB</div>
+                                                </div>
+                                                <!--
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 text-white-50 mb-1">Model</div>
+                                                </div>
+                                                -->
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 text-white-50 mb-1">TPL</div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 mb-1">{{process_seq.FAB_NO}}</div>
+                                                </div>
+                                                <!--
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 mb-1">{{process_seq.Pro_Type_Code}}</div>
+                                                </div>
+                                                -->
+                                                <div class="row">
+                                                    <div class="col-xl-12 font-size-15 mb-1">{{process_seq.TPL_No}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div style="text-align: center;" class="col-lg-3">
+                        <!-- <div  style="height: 80%;" class="card"> -->
+                        <div style="height: 80%;" class="card bg-dark border-dark text-light">
+                            <div class="row justify-content-between">
+                                <div style="margin-top: 10px;" class="col-md-12 ">
+                                    <h5 class="text-muted mb-0">
+                                        Cycle Time</h5>
+                                    <h2 class="text-light mb-0 mt-2">
+                                        00:00</h2>
+                                </div>
+
+                                <div class="col-md-12 ">
+                                    <h5 class="text-muted mb-0 mt-2 ">
+                                        Actual Time</h5>
+                                    <h2 class=" text-light mb-0 mt-2">
+                                        00:00</h2>
+
+                                </div>
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- form start -->
+                        <form  method="POST" >
+                            {%csrf_token%}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card mb-2">
+                                        <div class="card-title bg-dark rounded text-center text-light">
+                                            <div class="row">
+                                                <div class="col-md-4">Process Type</div>
+                                                <div class="col-md-4">Total Process</div>
+                                                <div class="col-md-4">Completed Process</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row text-center bg-dark">
+                                        </div>
+                                        <div class="row text-center">
+                                            <div id="processtype" class="col-md-4">
+                                                <input style="text-align: center;" value="{{process_seq.Pro_Type_Code}}" name="process_code" readonly></div>
+                                            <div class="col-md-4">{{process_seq.Total_Processes}} </div>
+                                            <div class="col-md-4">
+                                                <input value="{{process_seq.Process_Seq_No|add:'-1'}}" name="process_seq_no"></div>
+                                        </div>
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_AIREND PORTION STARTED FROM HERE -->
+                                <div id="CP_AIREND" style="display: none;" class="col-lg-12">
+                                    <div style="height: 100%;" class="card">
+                                        <div class="card-body">
+                                            <div id="box" class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="txtCpAirend_PartNo" name="airend_partno" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV No</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="txtCpAirend_RevNo" name="airend_revno" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Serial No</label>
+                                                        <div class="col-sm-9">
+                                                            <input id="txtCpAirend_SrNo" name="airend_serialno" type="text" class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <button  id="CP_AIREND_BTN" type="submit"
+                                                            class="btn btn-primary btn-sm" name="process" value="CP_AIREND">SUBMIT</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 text-dark">
+                                                    <table id="datatable1"
+                                                        class="table table-bordered dt-responsive  nowrap w-100"
+                                                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-center5">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    <input name="barcode" type="text" class="form-control"
+                                                                id="barcode_field" value="">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+
+                                <!-- CP_BELT_DETALS PORTION STARTED FROM HERE -->
+                                <div id="divCP_BELT_DETAILS" style="display: none;"  class="col-lg-12">
+                                    <div style="height: 100%;" class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+
+                                                    <div class="row mb-4">
+                                                        <h6>CP_BELT_DETAILS</h6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="beltdetails_partno" type="text" class="form-control"
+                                                            id="txtCpBeltDetails_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="beltdetails_revno" type="text" class="form-control"
+                                                                id="txtCpBeltDetails_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Batch No. 1</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="beltdetails_bone" type="text" class="form-control"
+                                                                id="txtCpBeltDetails_BatchNo1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Batch No. 2</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="beltdetails_btwo" type="text" class="form-control"
+                                                                id="txtCpBeltDetails_BatchNo2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Batch No. 3</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="beltdetails_bthree" type="text" class="form-control"
+                                                                id="txtCpBeltDetails_BatchNo3">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button ID="CP_BELT_DETAILS_BTN"  type="submit"
+                                                            class="btn btn-primary btn-sm" name="process" value="CP_BELT_DETAILS">SUBMIT</button>
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
+                                                <div class="col-xl-6 text-dark">
+
+                                                     <label for="sub_station_code" class="col-sm-3 col-form-label"> BELT MAKE </label>
+                                                        <div class="col-sm-9">
+                                                            <select class="form-select form-control" name="beltdetails_make" type="select">
+                                                                <option value="">Select</option>
+                                                                {% for item in process_seq.cpdropdown_list%}
+                                                                <option value="{{item}}">{{item}}</option>
+                                                                {%endfor%}
+                                                            </select>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_BELT_DETALS PORTION ENDED FROM HERE -->
+
+                                <!-- CP_CONTROL_PANEL START FROM HERE -->
+                                <div id="divCP_CONTROL_PANEL" style="display: none;"  class="col-lg-12">
+                                    <div style="height: 100%;" class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part
+                                                            No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="controlpanel_partno" type="text" class="form-control"
+                                                                id="txtCpControlDetails_PartNo" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="controlpanel_revno" type="text" class="form-control"
+                                                                id="txtCpControlDetails_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="controlpanel_serialno" type="text" class="form-control"
+                                                                id="txtCpControlDetails_SrNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Model </label>
+                                                        <div class="col-sm-9">
+                                                            <!--
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpControlDetails_Model">
+                                                                -->
+                                                            <select class="form-select form-control" name="controlpanel_model" type="select">
+                                                                <option value="">Select</option>
+                                                                {% for item in process_seq.cpdropdown_list%}
+                                                                <option value="{{item}}">{{item}}</option>
+                                                                {%endfor%}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Batch No. 3</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="sub_station_code">
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="row">
+                                                        <button id="CP_CONTROL_PANEL_BTN"  type="submit"
+                                                            class="btn btn-primary btn-sm" name="process" value="CP_CONTROL_PANEL">SUBMIT</button>
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
+                                                <div class="col-xl-6 text-dark">
+                                                    <table id="datatable1"
+                                                        class="table table-bordered dt-responsive  nowrap w-100"
+                                                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-center5">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_CONTROL_PANEL END FROM HERE -->
+
+
+                                <!-- CP_COOLER START FROM HERE -->
+                                <div id="divCP_COOLER" style="display: none;"  class="col-lg-12">
+                                    <div style="height: 100%;" class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part
+                                                            No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="cooler_partno" type="text" class="form-control"
+                                                                id="txtCpCoolerDetails_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="cooler_revno" type="text" class="form-control"
+                                                                id="txtCpCoolerDetails_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="cooler_serialno" type="text" class="form-control"
+                                                                id="txtCpCoolerDetails_SrNo">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Batch No. 3</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="sub_station_code">
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="row">
+                                                        <button id="COOLER_TEST_BTN"  type="submit"
+                                                            class="btn btn-primary btn-sm" name="process" value="CP_COOLER">SUBMIT</button>
+                                                    </div>
+
+
+                                                </div>
+
+
+
+
+                                                <div class="col-xl-6 text-dark">
+                                                    <table id="datatable1"
+                                                        class="table table-bordered dt-responsive  nowrap w-100"
+                                                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-center5">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                                <td>
+                                                                    &nbsp;
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_COOLER START END FROM HERE -->
+
+                                <!-- CP_DRIVE_PULLY START FROM HERE -->
+                                <div id="divCP_DRIVE_PULLY_TEST" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fit-content" class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+
+                                                    <div class="row mb-4">
+                                                        <h6>Drive Pully Section.</h6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part
+                                                            No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpDrivePullyTestDetails_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpDrivePullyTestDetails_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpDrivePullyTestDetails_SrNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Dia. of Pulley </label>
+                                                        <!-- <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="sub_station_code">
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_DRIVE_PULLY_TEST_BTN"  type="button"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_DRIVE_PULLY END FROM HERE -->
+
+
+                                <!-- CP_DRIVEN_PULLY START FROM HERE -->
+                                <div id="divCP_DRIVEN_PULLY_TEST" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fit-content;" class="card">
+                                        <div  class="card-body">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <h6>Driven Pully Section.</h6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part
+                                                            No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpDrivenPullyTestDetails_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpDrivenPullyTestDetails_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="txtCpDrivenPullyTestDetails_SrNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Dia. of Pulley </label>
+                                                        <!-- <div class="col-sm-9">
+                                                            <input name="substationcode" type="text" class="form-control"
+                                                                id="sub_station_code">
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="COOLER_TEST_BTN"  type="button"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_DRIVEN_PULLY END FROM HERE -->
+
+
+                                <!-- CP_DRYER START FROM HERE -->
+                                <div id="divCP_DRYER" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div style="height: fit-content;" class="row">
+                                                <div  class="col-xl-6">
+
+                                                    <div class="row mb-4">
+                                                        <H6>CP_DRYER</H6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part
+                                                            No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="dryer_partno" type="text" class="form-control"
+                                                                id="txtCP_DRYER_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV
+                                                            No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="dryer_revno" type="text" class="form-control"
+                                                                id="txtCP_DRYER_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="dryer_serialno" type="text" class="form-control"
+                                                                id="txtCP_DRYER_SrNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_DRYER_BTN"  type="submit" name="process" value="CP_DRYER"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_DRYER END FROM HERE -->
+
+                                <!-- CP_FAN_MOTOR FROM HERE -->
+                                <div id="divCP_FAN_MOTOR" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div style="height: fit-content;" class="row">
+                                                <div  class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <H6>CP_FAN_MOTOR</H6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="fanmotor_partno" type="text" class="form-control" id="txtCP_FAN_MOTOR_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="fanmotor_revno" type="text" class="form-control" id="txtCP_FAN_MOTOR_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No.1</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="fanmotor_serialno" type="text" class="form-control" id="txtCP_FAN_MOTOR_SrNo1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> KW </label>
+                                                        <div class="col-sm-9">
+                                                            <input name="fanmotor_kw" type="text" class="form-control" id="txtCP_FAN_MOTOR_Make">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_FAN_MOTOR_BTN"  type="submit" name="process" value="CP_FAN_MOTOR"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_FAN_MOTOR END FROM HERE -->
+
+                                <!-- CP_MOTOR FROM HERE -->
+                                <div id="divCP_MOTOR" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div style="height: fit-content;" class="row">
+                                                <div  class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <H6>CP_MOTOR</H6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="motor_partno" type="text" class="form-control" id="txtCP_MOTOR_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="motor_revno" type="text" class="form-control" id="txtCP_MOTOR_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No.1</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="motor_serialno" type="text" class="form-control" id="txtCP_MOTOR_SrNo1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Efficiency </label>
+                                                        <div class="col-sm-9">
+                                                            <input name="motor_efficiency" type="text" class="form-control" id="txtCP_MOTOR_Make">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_MOTOR_BTN"  type="submit" name="process" value="CP_MOTOR"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_MOTOR END FROM HERE -->
+
+                                <!-- CP_NEURON FROM HERE -->
+                                <div id="divCP_NEURON" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div style="height: fit-content;" class="row">
+                                                <div  class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <H6>CP_NEURON</H6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="neuron_partno" type="text" class="form-control" id="txtCP_NEURON_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="neuron_revno" type="text" class="form-control" id="txtCP_NEURON_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No.1</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="neuron_serialno" type="text" class="form-control" id="txtCP_NEURON_SrNo1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_NEURON_BTN"  type="submit" name="process" value="CP_NEURON"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_NEURON END FROM HERE -->
+
+                                <!-- CP_VFD FROM HERE -->
+                                <div id="divCP_VFD" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div style="height: fit-content;" class="row">
+                                                <div  class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <H6>CP_VFD</H6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="vfd_partno" type="text" class="form-control" id="txtCP_VFD_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="vfd_revno" type="text" class="form-control" id="txtCP_VFD_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No.1</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="vfd_serialno" type="text" class="form-control" id="txtCP_VFD_SrNo1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_VFD_BTN"  type="submit" name="process" value="CP_VFD"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_VFD END FROM HERE -->
+
+                                <!-- CP_TANK FROM HERE -->
+                                <div id="divCP_TANK" style="display: none;"  class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div style="height: fit-content;" class="row">
+                                                <div  class="col-xl-6">
+                                                    <div class="row mb-4">
+                                                        <H6>CP_TANK</H6>
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">Part No.</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="tank_partno" type="text" class="form-control" id="txtCP_TANK_PartNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label">REV No</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="tank_revno" type="text" class="form-control" id="txtCP_TANK_RevNo">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-4">
+                                                        <label for="sub_station_code" class="col-sm-3 col-form-label"> Serial No.1</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="tank_serialno" type="text" class="form-control" id="txtCP_TANK_SrNo1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <button id="CP_TANK_BTN"  type="submit" name="process" value="CP_TANK"
+                                                            class="btn btn-primary btn-sm">SUBMIT</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- end card body  -->
+                                    </div><!-- end card -->
+                                </div>
+                                <!-- CP_VFD END FROM HERE -->
+
+                                <!-- SUBMIT FROM HERE -->
+                                <div id="SUBMIT" style="display: none;" class="col-lg-12">
+                                    <div style="height: fir-content" class="card">
+                                        <div  class="card-body">
+                                            <div class="row">
+                                                <button  id="SUBMIT_BTN" type="submit" class="btn btn-primary btn-sm" name="process" value="SUBMIT">SUBMIT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- SUBMIT FROM HERE -->
+                            </div>
+                        </form>
+                    </div><!-- end col -->
+
+                    <div class="col-lg-4">
+                        <div style="height: 30%;" class="row  mb-0">
+                            <div  class="col-lg-6">
+                                <div style="height: 100%;" class="row text-center mb-0">
+                                    <div   class="card col-lg-12 justify-content-center">
+                                        <div  class=" ">
+                                            <div  class="card-body ">
+                                                <h5  class="text-dark mb-3">Waste Capture..</h5>
+                                                <div class="d-flex flex-wrap gap-2 justify-content-evenly">
+                                                    <button class="btn btn-primary" type="button"
+                                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                                                        aria-controls="offcanvasTop">P</button>
+                                                    <button class="btn btn-primary" type="button"
+                                                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
+                                                        aria-controls="offcanvasTop">Q</button>
+                                                </div>
+                                            </div><!-- end card body  -->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div style="height: 100%;" class="row ">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                                    <button style="width: 100px;" class="my-1 font-size-13 btn btn-primary btn-sm"
+                                                        type="button" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#offcanvasTop"
+                                                        aria-controls="offcanvasTop">Logout</button>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                                    <button style="width: 100px;" class="my-1 font-size-13 btn btn-primary btn-sm"
+                                                        type="button" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#offcanvasTop"
+                                                        aria-controls="offcanvasTop">Process Skip</button>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                                    <button style="width: 100px;" class="my-1 font-size-13 btn btn-primary btn-sm"
+                                                        type="button" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">UNIT
+                                                        SKIP</button>
+                                                </div>
+                                            </div><!-- end card body  -->
+                                        </div><!-- end card -->
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div style="height: 50%;" class="card">
+                                    <div style="height: 100%; padding: 5px;" class="card-image">
+                                        <img style="height: 100%;" class="card-img-top img-fluid" src="{% static process_seq.Process_Photo_Path %}" alt="Card image cap">
+
+                                    </div>
+                                </div>
+                                <!-- <div id="imm" style="height: 100%;" style="border: 1px solid red">
+                                    <img style="height: 50%;" class="card-img-top img-fluid"
+                                        src="{% static 'images/users/avatar-6.jpg' %}" alt="Card image cap">
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end row -->
+            <!-- alpha page end -->
+
+
+        </div>
+        <!--End  container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+    {% include 'general/footer.html' %}
+</div>
+<!-- end main content-->
+</div>
+<!-- END layout-wrapper -->
+
+
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-between m-0">
+            <h4 class="modal-title">Selected Order Details</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- <div class="modal-body">
+            <p style="background-color: gray; text-align: start;" class="text-light">Fab No. </p>
+            <p style="text-align: center;"><span id="selectedData"></span> </p>
+            <p style="background-color: gray; text-align: start;" class="text-light">TPL No.</p>
+            <p style="text-align: center;"><span id="selectedData2"></span></p>
+        </div> -->
+        <div class="modal-footer">
+          <button type="button" id="popup_ok" class="btn btn-default" data-dismiss="modal">Okay</button>
+          <button  id="popup_close" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+</div>
+
+{% include 'general/right_side_bar.html' %}
+{% include 'general/vendor_script.html' %}
+
+
+<!-- Required datatable js -->
+<script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<!-- Buttons examples -->
+<script src="{%static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{%static 'libs/jszip/jszip.min.js' %}"></script>
+<script src="{%static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{%static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+
+<!-- Responsive examples -->
+<script src="{%static 'libs/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{%static 'libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!-- Datatable init js -->
+<script src="{%static 'js/pages/datatables.init.js' %}"></script>
+
+
+ <script src="{% static 'js/pages/modal.init.js' %"></script>
+
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html>
+    <script>
+        //String({{process_type}})
+        var PROCESS_TYPE = '{{process_type}}';
+        // var PROCESS_TYPE = "CP_AIR_END"; //DEFAULT PROCESS TYPE. Coming from Django during Page Load.
+        // var PROCESS_TYPE = "CP_BELT_DETAILS";
+        // var PROCESS_TYPE = "CP_CONTROL_PANEL";
+        // var PROCESS_TYPE = "CP_COOLER";
+        // var PROCESS_TYPE = "CP_DRIVE_PULLY";
+        // var PROCESS_TYPE = "CP_DRIVEN_PULLY";
+        // var PROCESS_TYPE = "CP_DRYER";
+        // var PROCESS_TYPE = "CP_FAN_MOTOR";
+
+        console.log('{{process_type}}')
+        //var BarCode = "PRT001!REV001!SR123456"; // Barcode that gest scanned from the scanner.
+        const splitChar = "!"; //The Split Character for the BarCode String
+        var BarCodeArray = []; //Empty Array
+
+
+        //Show Or Hide CP_AIREND Screen
+        function showCP_AIREND(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#CP_AIREND").show();
+                $("#processtype").text("CP_CONTROL_PANEL")
+
+            } else {
+                $("#CP_AIREND").hide();
+            }
+
+            $("#processname").html("CP_AIREND");
+            $("#processtype").html("CP_AIREND");
+
+        }
+
+        //Show Or Hide CP_BELT_DETAILS Screen
+        function showCP_BELT_DETAILS(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_BELT_DETAILS").show();
+            } else {
+                $("#divCP_BELT_DETAILS").hide();
+            }
+
+            $("#processname").html("CP_BELT_DETAILS");
+            $("#processtype").html("CP_BELT_DETAILS");
+
+
+        }
+
+        //Show Or Hide CONTROL_PANEL_TEST Screen
+        function showCP_CONTROL_PANEL(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_CONTROL_PANEL").show();
+            } else {
+                $("#divCP_CONTROL_PANEL").hide();
+            }
+
+            $("#processname").html("CP_CONTROL_PANEL");
+            $("#processtype").html("CP_CONTROL_PANEL");
+        }
+
+        //Show Or Hide COOLER_TEST Screen
+        function showCP_COOLER(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_COOLER").show();
+            } else {
+                $("#divCP_COOLER").hide();
+            };
+
+            $("#processname").html("CP_COOLER");
+            $("#processtype").html("CP_COOLER");
+
+        }
+
+
+        //Show Or Hide CP_DRIVE_PULLY
+        function showCP_DRIVE_PULLY(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_DRIVE_PULLY_TEST").show();
+            } else {
+                $("#divCP_DRIVE_PULLY_TEST").hide();
+            };
+
+            $("#processname").html("CP_DRIVE_PULLY_TEST");
+            $("#processtype").html("CP_DRIVE_PULLY_TEST");
+        }
+
+        //Show Or Hide CP_DRIVEN_PULLY
+        function showCP_DRIVEN_PULLY(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_DRIVEN_PULLY_TEST").show();
+            } else {
+                $("#divCP_DRIVEN_PULLY_TEST").hide();
+            };
+
+            $("#processname").html("CP_DRIVEN_PULLY_TEST");
+            $("#processtype").html("CP_DRIVEN_PULLY_TEST");
+        }
+
+        //Show Or Hide CP_DRYER
+        function showCP_DRYER(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_DRYER").show();
+            } else {
+                $("#divCP_DRYER").hide();
+            };
+
+            $("#processname").html("CP_DRYER");
+            $("#processtype").html("CP_DRYER");
+        }
+
+        //Show Or Hide FAN_MOTOR_TEST Screen
+        function showCP_FAN_MOTOR(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_FAN_MOTOR").show();
+            } else {
+                $("#divCP_FAN_MOTOR").hide();
+            };
+
+            $("#processname").html("CP_FAN_MOTOR");
+            $("#processtype").html("CP_FAN_MOTOR");
+        }
+
+        //Show Or Hide MOTOR_TEST Screen
+        function showCP_MOTOR(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_MOTOR").show();
+            } else {
+                $("#divCP_MOTOR").hide();
+            };
+
+            $("#processname").html("CP_MOTOR");
+            $("#processtype").html("CP_MOTOR");
+        }
+
+        //Show Or Hide CP_NEURON_TEST Screen
+        function showCP_NEURON(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_NEURON").show();
+            } else {
+                $("#divCP_NEURON").hide();
+            };
+
+            $("#processname").html("CP_NEURON");
+            $("#processtype").html("CP_NEURON");
+        }
+
+        //Show Or Hide CP_VFD_TEST Screen
+        function showCP_VFD(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_VFD").show();
+            } else {
+                $("#divCP_VFD").hide();
+            };
+
+            $("#processname").html("CP_VFD");
+            $("#processtype").html("CP_VFD");
+        }
+
+        //Show Or Hide TANK_TEST Screen
+        function showCP_TANK(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#divCP_TANK").show();
+            } else {
+                $("#divCP_TANK").hide();
+            };
+
+            $("#processname").html("CP_TANK");
+            $("#processtype").html("CP_TANK");
+        }
+
+        //Show Or Hide SUBMIT Screen
+        function showSUBMIT(blnShowDiv) {
+            if(blnShowDiv) {
+                $("#SUBMIT").show();
+            } else {
+                $("#SUBMIT").hide();
+            };
+
+            $("#processname").html("SUBMIT");
+            $("#processtype").html("SUBMIT");
+        }
+
+
+        // Sets the cursor to right screen after the screen is shown or loaded.
+        function setOnLoadCursor() {
+            switch(PROCESS_TYPE) {
+                case "CP_AIREND":
+                    $("#txtCpAirend_PartNo").focus();
+                    $("#txtCpAirend_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_BELT_DETAILS":
+                    $("#txtCpBeltDetails_PartNo").focus();
+                    $("#txtCpBeltDetails_PartNo").val(BarCode).trigger("change");
+                    // $("#txtCpBeltDetails_RevNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_CONTROL_PANEL":
+                    $("#txtCpControlDetails_PartNo").focus();
+                    $("#txtCpControlDetails_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_COOLER":
+                    $("#txtCpCoolerDetails_PartNo").focus();
+                    $("#txtCpCoolerDetails_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_DRIVE_PULLY":
+                    $("#txtCpDrivePullyTestDetails_PartNo").focus();
+                    $("#txtCpDrivePullyTestDetails_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_DRIVEN_PULLY":
+                    $("#txtCpDrivenPullyTestDetails_PartNo").focus();
+                    $("#txtCpDrivenPullyTestDetails_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_DRYER":
+                    $("#txtCP_DRYER_PartNo").focus();
+                    $("#txtCP_DRYER_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_FAN_MOTOR":
+                    $("#txtCP_FAN_MOTOR_PartNo").focus();
+                    $("#txtCP_FAN_MOTOR_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_MOTOR":
+                    $("#txtCP_MOTOR_PartNo").focus();
+                    $("#txtCP_MOTOR_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_NEURON":
+                    $("#txtCP_NEURON_PartNo").focus();
+                    $("#txtCP_NEURON_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_VFD":
+                    $("#txtCP_VFD_PartNo").focus();
+                    $("#txtCP_VFD_PartNo").val(BarCode).trigger("change");
+                    break;
+                case "CP_TANK":
+                    $("#txtCP_TANK_PartNo").focus();
+                    $("#txtCP_TANK_PartNo").val(BarCode).trigger("change");
+                    break;
+                default:
+                    $("#txtCpAirend_PartNo").focus();
+            }
+        }
+
+        //Set Barcode Values back to textboxes
+        function setBarCodeValues() {
+            switch(PROCESS_TYPE) {
+                case "CP_AIREND":
+                    $("#txtCpAirend_PartNo").val(BarCodeArray[0]);
+                    $("#txtCpAirend_RevNo").val(BarCodeArray[1]);
+                    $("#txtCpAirend_SrNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_BELT_DETAILS":
+                    $("#txtCpBeltDetails_PartNo").val(BarCodeArray[0]);
+                    $("#txtCpBeltDetails_RevNo").val(BarCodeArray[1]);
+                    $("#txtCpBeltDetails_BatchNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_CONTROL_PANEL":
+                    $("#txtCpControlDetails_PartNo").val(BarCodeArray[0]);
+                    $("#txtCpControlDetails_RevNo").val(BarCodeArray[1]);
+                    $("#txtCpControlDetails_SrNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_COOLER":
+                    $("#txtCpCoolerDetails_PartNo").val(BarCodeArray[0]);
+                    $("#txtCpCoolerDetails_RevNo").val(BarCodeArray[1]);
+                    $("#txtCpCoolerDetails_SrNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_DRIVE_PULLY":
+                    $("#txtCpDrivePullyTestDetails_PartNo").val(BarCodeArray[0]);
+                    $("#txtCpDrivePullyTestDetails_RevNo").val(BarCodeArray[1]);
+                    $("#txtCpDrivePullyTestDetails_SrNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_DRIVEN_PULLY":
+                    $("#txtCpDrivenPullyTestDetails_PartNo").val(BarCodeArray[0]);
+                    $("#txtCpDrivenPullyTestDetails_RevNo").val(BarCodeArray[1]);
+                    $("#txtCpDrivenPullyTestDetails_SrNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_DRYER":
+                    $("#txtCP_DRYER_PartNo").val(BarCodeArray[0]);
+                    $("#txtCP_DRYER_RevNo").val(BarCodeArray[1]);
+                    $("#txtCP_DRYER_SrNo").val(BarCodeArray[2]);
+                    break;
+                case "CP_FAN_MOTOR":
+                    $("#txtCP_FAN_MOTOR_PartNo").val(BarCodeArray[0]);
+                    $("#txtCP_FAN_MOTOR_RevNo").val(BarCodeArray[1]);
+                    $("#txtCP_FAN_MOTOR_SrNo1").val(BarCodeArray[2]);
+                    break;
+                case "CP_MOTOR":
+                    $("#txtCP_MOTOR_PartNo").val(BarCodeArray[0]);
+                    $("#txtCP_MOTOR_RevNo").val(BarCodeArray[1]);
+                    $("#txtCP_MOTOR_SrNo1").val(BarCodeArray[2]);
+                    break;
+                case "CP_NEURON":
+                    $("#txtCP_NEURON_PartNo").val(BarCodeArray[0]);
+                    $("#txtCP_NEURON_RevNo").val(BarCodeArray[1]);
+                    $("#txtCP_NEURON_SrNo1").val(BarCodeArray[2]);
+                    break;
+                case "CP_VFD":
+                    $("#txtCP_VFD_PartNo").val(BarCodeArray[0]);
+                    $("#txtCP_VFD_RevNo").val(BarCodeArray[1]);
+                    $("#txtCP_VFD_SrNo1").val(BarCodeArray[2]);
+                    break;
+                case "CP_TANK":
+                    $("#txtCP_TANK_PartNo").val(BarCodeArray[0]);
+                    $("#txtCP_TANK_RevNo").val(BarCodeArray[1]);
+                    $("#txtCP_TANK_SrNo1").val(BarCodeArray[2]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //Split the String
+        function splitBarCode(strBarCode) {
+            //Let's split the String into an Array.
+            BarCodeArray = strBarCode.split(splitChar);
+            setBarCodeValues();
+        }
+
+
+        $(document).ready(function() {
+            //Hide All the Divs.
+            showCP_AIREND(false);
+            showCP_BELT_DETAILS(false);
+
+            //Change Event of the TextBoxes #txtCpAirend_PartNo
+            $("#txtCpAirend_PartNo").change(function() {
+                var barcodeString = $("#txtCpAirend_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes ("#txtCpBeltDetails_PartNo"
+            $("#txtCpBeltDetails_PartNo").change(function() {
+                var barcodeString = $("#txtCpBeltDetails_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes "#txtCpControlDetails_PartNo"
+            $("#txtCpControlDetails_PartNo").change(function() {
+                var barcodeString = $("#txtCpControlDetails_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes "#txtCpCoolerDetails_PartNo"
+            $("#txtCpCoolerDetails_PartNo").change(function() {
+                var barcodeString = $("#txtCpCoolerDetails_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCpDrivePullyTestDetails_PartNo").change(function() {
+                var barcodeString = $("#txtCpDrivePullyTestDetails_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCpDrivenPullyTestDetails_PartNo").change(function() {
+                var barcodeString = $("#txtCpDrivenPullyTestDetails_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCP_DRYER_PartNo").change(function() {
+                var barcodeString = $("#txtCP_DRYER_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCP_FAN_MOTOR_PartNo").change(function() {
+                var barcodeString = $("#txtCP_FAN_MOTOR_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCP_MOTOR_PartNo").change(function() {
+                var barcodeString = $("#txtCP_MOTOR_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCP_NEURON_PartNo").change(function() {
+                var barcodeString = $("#txtCP_NEURON_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCP_VFD_PartNo").change(function() {
+                var barcodeString = $("#txtCP_VFD_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+
+            //Change Event of the TextBoxes #txtCpDrivePullyTestDetails_PartNo
+            $("#txtCP_TANK_PartNo").change(function() {
+                var barcodeString = $("#txtCP_TANK_PartNo").val();
+                //Let's split the string.
+                if(barcodeString.indexOf("!") > -1) {
+                    splitBarCode(barcodeString);
+                }
+            });
+            //Show the Div based on the value received from Django Backend
+            switch(PROCESS_TYPE) {
+                case "CP_AIREND":
+                    showCP_AIREND(true);
+                    break;
+
+                case "CP_BELT_DETAILS":
+                    showCP_BELT_DETAILS(true);
+                    break;
+
+                case "CP_CONTROL_PANEL":
+                    showCP_CONTROL_PANEL(true);
+                    break;
+
+                case "CP_COOLER":
+                    showCP_COOLER(true);
+                    break;
+
+                case "CP_DRIVE_PULLY":
+                    showCP_DRIVE_PULLY(true);
+                    break;
+
+                case "CP_DRIVEN_PULLY":
+                    showCP_DRIVEN_PULLY(true);
+                    break;
+
+                case "CP_DRYER":
+                    showCP_DRYER(true);
+                    break;
+
+                case "CP_FAN_MOTOR":
+                    showCP_FAN_MOTOR(true);
+                    break;
+
+                case "CP_MOTOR":
+                    showCP_MOTOR(true);
+                    break;
+
+                case "CP_NEURON":
+                    showCP_NEURON(true);
+                    break;
+
+                case "CP_VFD":
+                    showCP_VFD(true);
+                    break;
+
+                case "CP_TANK":
+                    showCP_TANK(true);
+                    break;
+
+                case "SUBMIT":
+                    showSUBMIT(true);
+                    break;
+
+                default:
+                    showCP_AIREND(true);
+            }
+
+            setOnLoadCursor(); //Set the cursor to right form after load
+        });
+    </script>
+
+    <!-- <script>
+
+        function display()
+        {
+            $("#myModal").addClass("in");
+            $("#myModal").css("display","block");
+
+
+        }
+
+    </script> -->
+
+
+
+    <!-- <script>
+    $(document).ready(function(){
+        $("#popup_ok").click(function(){
+        console.log("clicked");
+        $("#myModal").model('hide');
+        $("#mybox1").css("display","block");
+    });
+    });
+
+
+    $(document).ready(function(){
+         $("#sbutton").click(function(){
+           console.log("clicked");
+           $("#myModal").modal("show");
+       });
+    });
+
+    $(document).ready(function(){
+        $("#popup_close").click(function(){
+        $("#myModal").modal('hide');
+        });
+    });
+     </script> -->
+
+
+
+    </body>
+    </html>

@@ -55,8 +55,15 @@ urlpatterns =[
     path('tpldetails', views.tpldetails, name="tpldetails"),
     path('processsequence', views.processsequence, name="processsequence"),
     path('activetpllist/<str:tpl_code>/<str:operation_code>', views.active_tpl_list, name="activetpllist"),
-    path('alphaline', views.alpha_line, name="alpha_line page"),
 
+    path('alphaline', views.alpha_line, name="alpha_line page"),
+    path('station_order_release', views.station_order_release, name="station_order_release"),
+    path('substation/<str:tplno>/<str:fabno>', views.substation, name="substation"),
+    path('station20', views.station20, name="station20"),
+    path('alphalinesample', views.alphalinesample, name="alphalinesample page"),
+
+
+    path('torque', views.torque_test, name="torque_test_page"),
     # path('del_record/<str:db>/<str:uid>', views.del_record, name="del_record"),
 #
 ]
