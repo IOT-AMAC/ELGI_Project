@@ -330,6 +330,7 @@ def process_master(request):
                         request.POST["process_code"], request.POST["sequence_no"], "EL1_P1_L1")
                     cursor.commit()
 
+
         except:
             pass
 
@@ -390,11 +391,14 @@ def process_master(request):
     # print("model_code_data",model_code_data)
 
     active_tpls_details = cursor.execute(
-        """SELECT * FROM[TT].[dbo].[Active_TPL_List]""")
+        """SELECT DISTINCT  [TPL_No]
+      ,[TPL_Description]
+      ,[Operator_Code]
+      ,[No_of_Processes] FROM[TT].[dbo].[Active_TPL_List]""")
     active_tpls_data = [{
-        "TPL_Code": obj[0], "TPL_Description": obj[1], "Operation_Code": obj[2], "No_of_Processes": obj[7]
+        "TPL_Code": obj[0], "TPL_Description": obj[1], "Operation_Code": obj[2], "No_of_Processes": obj[3]
     } for obj in active_tpls_details]
-    print("active_tpls_data ", active_tpls_data)
+    # print("active_tpls_data ", active_tpls_data)
 
     return render(request, 'process_master.html',
                   {"tpl_code_data": tpl_code_data, "process_code_data": process_code_data,
