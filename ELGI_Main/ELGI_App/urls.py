@@ -60,7 +60,7 @@ urlpatterns =[
     path('alphaline', views.alpha_line, name="alpha_line page"),
     path('station_order_release', views.station_order_release, name="station_order_release"),
     path('substation/<str:tplno>/<str:fabno>', views.substation, name="substation"),
-    path('station20', views.station20, name="station20"),
+    #path('station20', views.station20, name="station20"),
     path('alphalinesample', views.alphalinesample, name="alphalinesample page"),
     path('substationapi',views.substation_api, name="sub station api"),
 
