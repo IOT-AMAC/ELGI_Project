@@ -102,7 +102,7 @@
                                                                 {%for i in order_release_table%}
                                                                 <tr>
                                                                     <td>{{i.TPL_No}}</td>
-                                                                    <td>{{i.FAB_No}}</td>
+                                                                    <td>AUES034896</td>
                                                                     <td>{{i.Release_Date}}</td>
                                                                     <td>{{i.TPL_Description}}</td>
                                                                 </tr>
@@ -125,7 +125,7 @@
                                                                     <div class="modal-body">
                                                                         <p style="background-color: gray; text-align: start;" class="text-light px-2">Fab No. </p>
                                                                         <div style="text-align: center;" class="form-label-group">
-                                                                            <input style="text-align: center;" class="form-control shadow-none" name="fabno" value="AVGC377434" readonly/>
+                                                                            <input style="text-align: center;" class="form-control shadow-none" name="fabno" value="AUES034896" readonly/>
                                                                         </div>
                                                                         <br>
                                                                         <!-- <p style="text-align: center;"><span id="selectedData"></span>tpl11</p> -->
@@ -136,7 +136,7 @@
                                                                         <!-- <p style="text-align: center;"><span id="selectedData2"></span>AUES034896</p> -->
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <a href="{% url 'substation' tplno fabno %}">
+                                                                        <a href="{% url 'substation' 'tpl11' 'AVGC377434' %}">
                                                                         <button type="submit"  class="btn btn-success w-md" style="background-color:green;" name="order_release">Ok</button>
                                                                         </a>
                                                                         <button type="button" class="btn btn-success w-md" data-bs-dismiss="modal" >Cancel</button>

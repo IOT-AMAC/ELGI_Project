@@ -5,3 +5,4 @@ pyodbc==4.0.35
 sqlparse==0.4.3
 tzdata==2022.7
 wfastcgi==3.0.0
+django-cors-headers==3.13.0
