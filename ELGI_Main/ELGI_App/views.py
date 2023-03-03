@@ -20,8 +20,8 @@ print("conn ", conn)
 # Create your views here.
 
 def db_connection():
-    # conn = pyodbc.connect('DRIVER={SQL Server};SERVER=PROD-DF;DATABASE=TT;UID=MEI_DF;PWD=MEI@mac;Trusted_Connection=yes')
-    conn = pyodbc.connect('DRIVER={SQL Server};SERVER=adama\SQLEXPRESS;DATABASE=TT;')
+    conn = pyodbc.connect('DRIVER={SQL Server};SERVER=PROD-DF;DATABASE=TT;UID=MEI_DF;PWD=MEI@mac;Trusted_Connection=yes')
+    #conn = pyodbc.connect('DRIVER={SQL Server};SERVER=adama\SQLEXPRESS;DATABASE=TT;')
     cursor = conn.cursor()
     return cursor
 
@@ -844,7 +844,7 @@ def station_order_release(request):
         "Release_Date": obj[3],
         "TPL_Description": obj[7]
     } for obj in cursor.execute(order_release_query)]
-    print(order_release_query)
+    #print(order_release_query)
 
     order_release_error_query = """SELECT * FROM [TT].[dbo].[Sub1_OP1_Fab_Init_View] WHERE Release_Date >= DATEADD(day, -30, GETDATE()) AND Status = NULL """
     order_release_error_table = [{
@@ -853,7 +853,7 @@ def station_order_release(request):
         "Release_Date": obj[3],
         "TPL_Description": obj[7]
     } for obj in cursor.execute(order_release_error_query)]
-    print("order_release_table", order_release_table)
+    #print("order_release_table", order_release_table)
     # print("order release error table", order_release_error_table)
 
     employee_details_query = """ SELECT * FROM [TT].[dbo].[Employee_Details_View] WHERE User_Name='100213' """
@@ -867,10 +867,8 @@ def station_order_release(request):
         "order_release_table": order_release_table,
         "order_release_error_table": order_release_error_table,
         "employee_details_list": employee_details_list,
-        "tplno": "tpl12",
-        "fabno": "AUFS035408"
     }
-    print(json)
+    #print(json)
     return render(request, 'stations/station_home.html', json)
 
 
@@ -896,10 +894,8 @@ def substation(request, tplno, fabno):
 
     }
 
-    if request.method == "POST" and "process" in request.POST:
-        print("POST Process data", request.POST)
-
     process_seq_data = finding_seq(tplno, fabno)
+    print("process_seq_data", process_seq_data)
 
     if process_seq_data == "seq_complete":
         return redirect(station_order_release)
@@ -923,12 +919,12 @@ def finding_seq(tplno, fabno):
     completed_seq_no_list = [obj[0] for obj in cursor.execute(completed_seq_no_query, tplno, fabno)]
     process_seq_no_query = """SELECT Process_Seq_No FROM [TT].[dbo].[Sub_Station_Screens_Data_View] WHERE TPL_No = ? AND FAB_NO = ? ORDER BY Process_Seq_No ASC"""
     process_seq_no_list = [obj[0] for obj in cursor.execute(process_seq_no_query, tplno, fabno)]
-    # print("seq_no lists", completed_seq_no_list, process_seq_no_list)
+    #print("seq_no lists", completed_seq_no_list, process_seq_no_list)
 
     for i in completed_seq_no_list:
         if i in process_seq_no_list:
             process_seq_no_list.remove(i)
-    print("present seq_no", process_seq_no_list)
+    #print("present seq_no", process_seq_no_list)
 
     if len(process_seq_no_list) == 0:
         return "seq_complete"
@@ -936,13 +932,13 @@ def finding_seq(tplno, fabno):
     if len(completed_seq_no_list) == 0:
         actual_time = "00:00"
     else:
-        print("completed_seq_no_list", completed_seq_no_list)
+        #print("completed_seq_no_list", completed_seq_no_list)
 
         actual_time_query = """SELECT Actual_Time FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND FAB_NO = ? AND Process_Seq_No = ? """
         actual_time_list = [obj[0] for obj in cursor.execute(actual_time_query, tplno, fabno,
                                                              completed_seq_no_list[len(completed_seq_no_list) - 1])]
         actual_time = actual_time_list[0]
-        print("Actual Time", actual_time)
+        #print("Actual Time", actual_time)
 
     process_seq = cursor.execute(
         """SELECT * FROM [TT].[dbo].[Sub_Station_Screens_Data_View] WHERE TPL_No = ? AND FAB_NO = ? AND Process_Seq_No = ?""",
@@ -959,14 +955,12 @@ def finding_seq(tplno, fabno):
                             , "Tool_Joint": obj[9]
                             , "Takt_Time": obj[10]
                             , "Total_Processes": obj[11]} for obj in process_seq]
-    process_seq_list[0].update(
-        {"Cycle_Time": "1:08", "Actual_Time": actual_time, "Completed_Process": len(completed_seq_no_list)})
+    process_seq_list[0].update({"Cycle_Time": "1:08", "Actual_Time": actual_time, "Completed_Process": len(completed_seq_no_list)})
     if process_seq_list[0]["Pro_Type_Code"] == "CP_CONTROL_PANEL":
         cpdropdown_query = """SELECT Drop_Down_String FROM [TT].[dbo].[CP_Dropdown] WHERE Child_Part_Code = 'CP_CONTROL_PANEL' """
         cpdropdown_list = [obj[0] for obj in cursor.execute(cpdropdown_query)]
         print("cp_dropdown", cpdropdown_list)
         process_seq_list[0].update({"cpdropdown_list": cpdropdown_list})
-
     if process_seq_list[0]["Pro_Type_Code"] == "CP_BELT_DETAILS":
         cpdropdown_query = """SELECT Drop_Down_String FROM [TT].[dbo].[CP_Dropdown] WHERE Child_Part_Code = 'CP_BELT_DETAILS' """
         cpdropdown_list = [obj[0] for obj in cursor.execute(cpdropdown_query)]
