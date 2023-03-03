@@ -127,7 +127,7 @@
                                                                         <input type="text" class="form-control" id="skill_required" readonly>
                                                                     </div>
                                                                 </div>
-
+                                    
                                                                 <div class="row justify-content-end">
                                                                     <div class="col-sm-9">
                                                                         <div>
@@ -146,7 +146,7 @@
                                                 {% comment %} <div class="row">
                                                 <div class="col-12">
                                                 <div class="card">
-
+                                                    
                                                     <div class="card-body">
                                                         <table id="datatable-buttons1"class="table table-bordered dt-responsive  nowrap w-100">
                                                                     <thead>
@@ -208,7 +208,7 @@
                                                                             <td>EG11-C-60WOM</td>
                                                                             <td>M</td>
                                                                         </tr>
-
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                     </div>
@@ -234,24 +234,18 @@
                                                                         <label for="sub_station_code" class="col-sm-3 col-form-label">Group</label>
                                                                         <div class="col-sm-9">
                                                                             <select  id="group" class="form-control" name="Group">
+                                                                                <option value="0">Select</option>
                                                                                 <option value="EG">EG</option>
                                                                                 <option value="EN">EN</option>
-                                                                                <option value="EV">EV</option>
+                                                                                <option value="EV">	EV</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
 
-                                                                    {% comment %} <div class="row mb-4">
-                                                                        <label for="sub_station_code" class="col-sm-3 col-form-label" >Model Code</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="st_operator_code" name="Model_Code" >
-                                                                        </div>
-                                                                    </div> {% endcomment %}
-
                                                                     <div class="row mb-4">
                                                                         <label for="st_operator_code" class="col-sm-3 col-form-label">TPL Code</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" id="st_operator_code" name="TPL_Code" >
+                                                                            <input type="text" class="form-control" id="tpl_code" name="TPL_Code" >
                                                                         </div>
                                                                     </div>
 
@@ -266,6 +260,7 @@
                                                                         <label for="sub_station_code" class="col-sm-3 col-form-label">Machine on AGV</label>
                                                                         <div class="col-sm-9">
                                                                           <select id="AGV" class="form-control" name="AGV">
+                                                                                <option value="0">Select</option>
                                                                                 <option value="1">1</option>
                                                                                 <option value="2">2</option>
                                                                             </select>
@@ -275,15 +270,16 @@
                                                                     <div class="row mb-4">
                                                                         <label for="skill_required" class="col-sm-3 col-form-label">TPL Description</label>
                                                                         <div class="col-sm-9">
-                                                                          <input type="text" class="form-control" id="TPL Description" name="TPL_Description" >
+                                                                          <input type="text" class="form-control" id="TPL_Description" name="TPL_Description" >
                                                                         </div>
                                                                     </div>
-
+                                        
                                                                     <div class="row justify-content-end">
                                                                         <div class="col-sm-9">
                                                                             <div>
-                                                                                <button type="submit" class="btn btn-primary w-md" name="submit" value="Add">Add</button>
-                                                                                <button type="submit" class="btn btn-primary w-md" name="submit" value="Modify">Modify</button>
+                                                                                <button type="submit" class="btn btn-primary w-md" id="addbtn" name="submit" value="Add">Add</button>
+                                                                                <button type="submit" class="btn btn-primary w-md" id="updatebtn" name="submit" value="Modify">Modify</button>
+                                                                                <button type="submit" class="btn btn-primary w-md" id="clearbtn" name="submit" onclick="clearInput()">Clear</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -303,7 +299,7 @@
                                                             <div class="card-body">
                                                                 <div class="table-responsive">
                                                                         <!-- <table class="table table-bordered dt-responsive  nowrap w-100">-->
-                                                                        <table id="datatable-buttons2" class="custom_table table table-bordered nonwrap w-100">
+                                                                        <table id="datatable-buttons" class="custom_table table table-bordered nonwrap w-100">
                                                                         <thead>
                                                                         <tr>
                                                                             <th scope="col">#</th>
@@ -336,122 +332,7 @@
                                             </div>
                                             <!-- tab tpl_master end-->
                                             <!-- tab active tpl start -->
-                                            {% comment %} <div class="tab-pane" id="activetpl" role="tabpanel">
-
-                                                  <!-- table start-->
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="card">
-
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                        <!-- <table class="table table-bordered dt-responsive  nowrap w-100">-->
-                                                                        <table id="datatable-buttons3" class="custom_table table table-bordered nonwrap w-100">
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <th scope="col">#</th>
-                                                                            <th scope="col">TPL_Code</th>
-                                                                            <th scope="col">Description</th>
-                                                                            <th scope="col">No. Of Process</th>
-                                                                            <th scope="col">Date</th>
-                                                                            <th></th>
-                                                                            <th></th>
-                                                                            <th></th>
-
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-
-                                                                            <tr>
-                                                                                <td>1</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>2</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>3</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>4</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>5</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>6</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>7</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>8</td>
-                                                                                <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">123</a></td>
-                                                                                <td>Description</td>
-                                                                                <td>3</td>
-                                                                                <td>27/1/2023</td>
-                                                                                <td><a href="" title="Edit"> <i data-feather="edit" class="feather feather-edit"></i></a></td>
-                                                                                <td><i data-feather="copy" class="feather feather-copy"></i></td>
-                                                                                <td><i data-feather="delete" class="feather feather-delete"></i></td>
-                                                                            </tr>
-
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- table end -->
-                                            </div> {% endcomment %}
+                                            
                                             <!-- tab active tpl end -->
                                         </div>
                                         <!-- tab pan end-->
@@ -501,237 +382,23 @@
         <script src="{%static 'js/pages/datatables.init.js' %}"></script>
         <script src="{%static 'js/app.js' %}"></script>
 
-  <script>
-            $(document).ready(function () {
-                $("#datatable").DataTable(),
-                $('#datatable-buttons1 thead tr')
-
-                var table = $('#datatable-buttons1').DataTable({
-                    orderCellsTop: true,
-                    fixedHeader: true,
-                    lengthChange: !1,
-                    buttons: ["copy", "excel", "pdf", "colvis"],
-                    initComplete: function () {
-
-                        this.api().columns(0).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons1 thead tr #sort0')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                        this.api().columns(1).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons1 thead tr #sort1')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                        this.api().columns(2).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons1 thead tr #sort2')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                    },
-                }).buttons().container().appendTo("#datatable-buttons1_wrapper .col-md-6:eq(0)");
-                $(".dataTables_length select").addClass("form-select form-select-sm")
-            });
-        </script>
-<script>
-            $(document).ready(function () {
-                $("#datatable").DataTable(),
-                $('#datatable-buttons2 thead tr')
-
-                var table = $('#datatable-buttons2').DataTable({
-                    orderCellsTop: true,
-                    fixedHeader: true,
-                    lengthChange: !1,
-                    buttons: ["copy", "excel", "pdf", "colvis"],
-                    initComplete: function () {
-
-                        this.api().columns(0).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons2 thead tr #sort0')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                        this.api().columns(1).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons2 thead tr #sort1')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                        this.api().columns(2).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons2 thead tr #sort2')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                    },
-                }).buttons().container().appendTo("#datatable-buttons2_wrapper .col-md-6:eq(0)");
-                $(".dataTables_length select").addClass("form-select form-select-sm")
-            });
-        </script>
-<script>
-            $(document).ready(function () {
-                $("#datatable").DataTable(),
-                $('#datatable-buttons3 thead tr')
-
-                var table = $('#datatable-buttons3').DataTable({
-                    orderCellsTop: true,
-                    fixedHeader: true,
-                    lengthChange: !1,
-                    buttons: ["copy", "excel", "pdf", "colvis"],
-                    initComplete: function () {
-
-                        this.api().columns(0).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons3 thead tr #sort0')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                        this.api().columns(1).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons3 thead tr #sort1')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                        this.api().columns(2).every(function () {
-                            var column = this;
-                            var select = $(' <select class="form-select"><option value=""></option></select>')
-                                // .appendTo(myTable.header())
-                                .appendTo('#datatable-buttons3 thead tr #sort2')
-                                .on('change', function () {
-                                    var val = $.fn.dataTable.util.escapeRegex(
-                                        $(this).val()
-                                    );
-
-                                    column
-                                        .search(val ? '^' + val + '$' : '', true, false)
-                                        .draw();
-                                });
-
-                            column.data().unique().sort().each(function (d, j) {
-                                select.append('<option value="' + d + '">' + d + '</option>')
-                            });
-                        })
-
-                    },
-                }).buttons().container().appendTo("#datatable-buttons3_wrapper .col-md-6:eq(0)");
-                $(".dataTables_length select").addClass("form-select form-select-sm")
-            });
-        </script>
+ <script>
+        //Update Value TPL Master
+        var table = document.getElementById('datatable-buttons');
+        
+        for(var i = 1; i < table.rows.length; i++)
+        {
+            table.rows[i].onclick = function()
+            {
+                    console.log(table.rows);
+                    document.getElementById("tpl_code").value = this.cells[1].innerHTML;
+                    document.getElementById("AGV").value = this.cells[4].innerHTML;
+                    document.getElementById("TPL_Description").value = this.cells[3].innerHTML;
+                    document.getElementById("group").value=this.cells[2].innerHTML;
+                    $('#addbtn').addClass("disabled");
+            };
+        }
+</script> 
 
 </body>
 
