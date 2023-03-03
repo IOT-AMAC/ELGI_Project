@@ -102,7 +102,7 @@
                                                                 {%for i in order_release_table%}
                                                                 <tr>
                                                                     <td>{{i.TPL_No}}</td>
-                                                                    <td>AUES034896</td>
+                                                                    <td>{{i.FAB_No}}</td>
                                                                     <td>{{i.Release_Date}}</td>
                                                                     <td>{{i.TPL_Description}}</td>
                                                                 </tr>
@@ -111,40 +111,7 @@
 
                                                                 </tbody>
                                                         </table>
-                                                        <div class="modal fade bs-example-modal-center5" tabindex="-1" role="dialog" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                <div class="modal-content">
-                                                                    <!--
-                                                                    <form method="post" action="substation">
-                                                                        {%csrf_token%}
-                                                                        -->
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title">Selected Order Details</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <p style="background-color: gray; text-align: start;" class="text-light px-2">Fab No. </p>
-                                                                        <div style="text-align: center;" class="form-label-group">
-                                                                            <input style="text-align: center;" class="form-control shadow-none" name="fabno" value="AUES034896" readonly/>
-                                                                        </div>
-                                                                        <br>
-                                                                        <!-- <p style="text-align: center;"><span id="selectedData"></span>tpl11</p> -->
-                                                                        <p style="background-color: gray; text-align: start;" class="text-light px-2">TPL No.</p>
-                                                                        <div style="text-align: center;" class="form-label-group">
-                                                                            <input style="text-align: center;" class="form-control shadow-none" name="tplno" value="tpl11" readonly/>
-                                                                        </div>
-                                                                        <!-- <p style="text-align: center;"><span id="selectedData2"></span>AUES034896</p> -->
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <a href="{% url 'substation' 'tpl11' 'AVGC377434' %}">
-                                                                        <button type="submit"  class="btn btn-success w-md" style="background-color:green;" name="order_release">Ok</button>
-                                                                        </a>
-                                                                        <button type="button" class="btn btn-success w-md" data-bs-dismiss="modal" >Cancel</button>
-                                                                    </div>
-<!--                                                                    </form>-->
-                                                                </div><!-- /.modal-content -->
-                                                            </div><!-- /.modal-dialog -->
-                                                        </div><!-- /.modal -->
+
                                                     </div>
                                                       <!-- table end -->
                                                 </div>
@@ -164,7 +131,6 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-
                                                                         <tr >
                                                                             <td>SO13864</td>
                                                                             <td>BIGSO44706</td>
@@ -211,27 +177,38 @@
 
                                                                 </tbody>
                                                         </table>
-                                                        <div class="modal fade bs-example-modal-center5" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div id="myModal" class="modal fade bs-example-modal-center5" tabindex="-1"
+                                                            role="dialog" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title">Selected Order Details</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        <button type="button" class="btn-close"
+                                                                            data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <p style="background-color: gray; text-align: start; px-2" class="text-light">Fab No. </p>
-                                                                        <p style="text-align: center;"><span id="selectedData"></span>SO13864</p>
-                                                                        <p style="background-color: gray; text-align: start; px-2" class="text-light">TPL No.</p>
-                                                                        <p style="text-align: center;"><span id="selectedData2"></span>BIGSO44706</p>
+                                                                        <p style=" text-align: start;"
+                                                                            class="text-light bg-dark px-2">Fab No.:
+                                                                        </p>
+                                                                        <p style="text-align: center;"><span
+                                                                                id="selectedData"></span> </p>
+                                                                        <p style=" text-align: start;"
+                                                                            class="text-light bg-dark px-2">TPL No.:
+                                                                        </p>
+                                                                        <p style="text-align: center;"><span
+                                                                                id="selectedData2"></span></p>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="submit" class="btn btn-primary w-md" style="background-color:green;">Ok</button>
+                                                                        <a href="" id="linkbtn">
+                                                                            <button type="submit"  class="btn btn-success w-md" style="background-color:green;" name="order_release">Ok</button>
+                                                                        </a>
 
-                                                                        <button type="submit" class="btn btn-secondary w-md">Cancel</button>
+                                                                        <button id="popup_close" type="submit"
+                                                                            class="btn btn-primary w-md">Cancel</button>
                                                                     </div>
                                                                 </div><!-- /.modal-content -->
                                                             </div><!-- /.modal-dialog -->
-                                                        </div><!-- /.modal -->
+                                                        </div><!-- /.modal -->``
                                                     </div>
                                                       <!-- table end -->
                                                 </div>
@@ -293,8 +270,43 @@
 
 <script src="{% static 'js/app.js' %}"></script>
 
+<script>
 
+    $(document).ready(function () {
+
+        $("table tr").each(function () {
+            $(this).find("td:lt(2)").addClass("disabled");
+        });
+
+        $("table tr").click(function () {
+            var firstCellValue = $(this).find("td:eq(0)").text();
+            var secondCellValue = $(this).find("td:eq(1)").text();
+
+            $("#selectedData2").html(firstCellValue);
+            $("#selectedData").html(secondCellValue);
+            tplNo = document.getElementById("selectedData2").innerText;
+            fabNo = document.getElementById("selectedData").innerText;
+            const a = document.querySelector('#linkbtn');
+            a.href = 'substation/'+tplNo+'/'+fabNo;
+
+        });
+
+        $("#popup_close").click(function () {
+            $("#myModal").modal('hide');
+        });
+        $("#popup_OK").click(function () {
+            var abc = document.getElementById("selectedData2").innerText;
+
+        });
+    });
+
+
+</script>
 
 
 </body>
 </html>
+
+
+
+
