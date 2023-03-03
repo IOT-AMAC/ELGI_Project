@@ -743,7 +743,7 @@ def alphaline3(request):
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Type],[Part_No],[Rev_No],[Serial_No],[Status]) values (?,?,?,?,?,?,?,?,?)",
                 order_release_table[0]["TPL_No"], order_release_table[0]["FAB_No"],
                 employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"],
-                process_seq_data[0]["Pro_Type_Code"], partno, revno, serialno, "c")
+                process_seq_data[0]["Pro_Type_Code"], partno, revno, serialno, "C")
             cursor.commit()
             cursor.close()
             json = {
@@ -796,7 +796,7 @@ def alphaline3(request):
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Type],[Part_No],[Rev_No],[Serial_No],[Status]) values (?,?,?,?,?,?,?,?,?)",
                 order_release_table[0]["TPL_No"], order_release_table[0]["FAB_No"],
                 employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"],
-                "CP_COOLER", partno, revno, serialno, "c")
+                "CP_COOLER", partno, revno, serialno, "C")
             cursor.commit()
             cursor.close()
             json = {
@@ -834,19 +834,17 @@ def alphaline3(request):
     return render(request, 'alphaline3.html', json)
 
 
-def station20(request):
-    return render(request, 'stations/station20.html')
-
 def station_order_release(request):
     cursor = db_connection()
 
-    order_release_query = """SELECT * FROM [TT].[dbo].[Sub1_OP1_Fab_Init_View] WHERE Release_Date >= DATEADD(day, -30, GETDATE()) AND Status = 'R'"""
+    order_release_query = """SELECT * FROM [TT].[dbo].[Sub1_OP1_Fab_Init_View] WHERE Release_Date >= DATEADD(day, -50, GETDATE()) AND Status = 'R'"""
     order_release_table = [{
         "TPL_No": obj[0],
         "FAB_No": obj[1],
         "Release_Date": obj[3],
         "TPL_Description": obj[7]
     } for obj in cursor.execute(order_release_query)]
+    print(order_release_query)
 
     order_release_error_query = """SELECT * FROM [TT].[dbo].[Sub1_OP1_Fab_Init_View] WHERE Release_Date >= DATEADD(day, -30, GETDATE()) AND Status = NULL """
     order_release_error_table = [{
@@ -855,11 +853,7 @@ def station_order_release(request):
         "Release_Date": obj[3],
         "TPL_Description": obj[7]
     } for obj in cursor.execute(order_release_error_query)]
-
     print("order_release_table", order_release_table)
-
-    # print("order_release_table",order_release_table)
-
     # print("order release error table", order_release_error_table)
 
     employee_details_query = """ SELECT * FROM [TT].[dbo].[Employee_Details_View] WHERE User_Name='100213' """
@@ -873,12 +867,11 @@ def station_order_release(request):
         "order_release_table": order_release_table,
         "order_release_error_table": order_release_error_table,
         "employee_details_list": employee_details_list,
-        "tplno": "tpl11",
-        "fabno": "AUES034896"
+        "tplno": "tpl12",
+        "fabno": "AUFS035408"
     }
     print(json)
     return render(request, 'stations/station_home.html', json)
-
 
 
 def substation(request, tplno, fabno):
@@ -893,21 +886,15 @@ def substation(request, tplno, fabno):
         "Skill_Level": obj[2]
     } for obj in cursor.execute(employee_details_query, user_name)]
 
-
-
-
-def substation(request, tplno, fabno):
-
     json = {
         "process_type": "default",
         "employee_details": {
-            "Emp_Name": "",
-            "Emp_ID": "",
-            "Skill_level": ""
+            "Emp_Name": employee_details_list[0]["Emp_Name"],
+            "Emp_ID": employee_details_list[0]["Emp_ID"],
+            "Skill_level": employee_details_list[0]["Skill_Level"]
         },
 
     }
-
 
     if request.method == "POST" and "process" in request.POST:
         print("POST Process data", request.POST)
@@ -919,33 +906,20 @@ def substation(request, tplno, fabno):
 
     json = {
         "process_type": process_seq_data["Pro_Type_Code"],
+        "employee_details": {
+            "Emp_Name": employee_details_list[0]["Emp_Name"],
+            "Emp_ID": employee_details_list[0]["Emp_ID"],
+            "Skill_level": employee_details_list[0]["Skill_Level"]
+        },
         "process_seq": process_seq_data
     }
     return render(request, 'stations/substation.html', json)
 
-    json = {
-
-        "employee_details": {
-            "Emp_Name": "Vivek",
-            "Emp_ID": "123",
-            "Skill_level": "10"
-        },
-
-    }
-    # return render(request, 'stations/substation.html', json)
-    return render(request, 'stations/abhayalpha.html', json)
-
-
 
 def finding_seq(tplno, fabno):
     cursor = db_connection()
-
     base_url = r"static/images/users/"
     completed_seq_no_query = """ SELECT Process_Seq_No FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND Fab_No = ? ORDER BY Process_Seq_No ASC """
-
-    base_url = r"images/users/"
-    completed_seq_no_query = """ SELECT Process_Seq_No FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND Fab_No = ? AND Process_Status = 'c' ORDER BY Process_Seq_No ASC """
-
     completed_seq_no_list = [obj[0] for obj in cursor.execute(completed_seq_no_query, tplno, fabno)]
     process_seq_no_query = """SELECT Process_Seq_No FROM [TT].[dbo].[Sub_Station_Screens_Data_View] WHERE TPL_No = ? AND FAB_NO = ? ORDER BY Process_Seq_No ASC"""
     process_seq_no_list = [obj[0] for obj in cursor.execute(process_seq_no_query, tplno, fabno)]
@@ -964,14 +938,9 @@ def finding_seq(tplno, fabno):
     else:
         print("completed_seq_no_list", completed_seq_no_list)
 
-
         actual_time_query = """SELECT Actual_Time FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND FAB_NO = ? AND Process_Seq_No = ? """
         actual_time_list = [obj[0] for obj in cursor.execute(actual_time_query, tplno, fabno,
                                                              completed_seq_no_list[len(completed_seq_no_list) - 1])]
-
-        actual_time_query = """SELECT Actual_Time FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND FAB_NO = ? AND Process_Seq_No = ? """
-        actual_time_list = [obj[0] for obj in cursor.execute(actual_time_query, tplno, fabno, completed_seq_no_list[0])]
-
         actual_time = actual_time_list[0]
         print("Actual Time", actual_time)
 
@@ -987,15 +956,11 @@ def finding_seq(tplno, fabno):
                             , "Process_Photo_Path": base_url + obj[6]
                             , "Torque": obj[7]
                             , "Tool_ID": obj[8]
-                            , "Bolt_Count": obj[9]
+                            , "Tool_Joint": obj[9]
                             , "Takt_Time": obj[10]
                             , "Total_Processes": obj[11]} for obj in process_seq]
-
     process_seq_list[0].update(
         {"Cycle_Time": "1:08", "Actual_Time": actual_time, "Completed_Process": len(completed_seq_no_list)})
-
-    process_seq_list[0].update({"Cycle_Time": "02:59", "Actual_Time": actual_time})
-
     if process_seq_list[0]["Pro_Type_Code"] == "CP_CONTROL_PANEL":
         cpdropdown_query = """SELECT Drop_Down_String FROM [TT].[dbo].[CP_Dropdown] WHERE Child_Part_Code = 'CP_CONTROL_PANEL' """
         cpdropdown_list = [obj[0] for obj in cursor.execute(cpdropdown_query)]
@@ -1007,8 +972,14 @@ def finding_seq(tplno, fabno):
         cpdropdown_list = [obj[0] for obj in cursor.execute(cpdropdown_query)]
         print("cp_dropdown", cpdropdown_list)
         process_seq_list[0].update({"cpdropdown_list": cpdropdown_list})
+    if process_seq_list[0]["Pro_Type_Code"] == "TORQUE":
+        print("TOOL_ID", process_seq_list[0]['Tool_ID'][0])
+        if process_seq_list[0]['Tool_ID'][0] == "C":
+            process_seq_list[0].update({"Tool_Type": "CLECO", "card_type": "TORQUE1"})
+        if process_seq_list[0]['Tool_ID'][0] == "R":
+            process_seq_list[0].update({"card_type": "TORQUE2"})
+    # print("Process Seq List _ Torque", process_seq_list[0])
 
-    print("Process Seq List", process_seq_list[0])
     return process_seq_list[0]
 
 
@@ -1054,7 +1025,8 @@ def process_validate(request, tplno, fabno, employee_details_list):
             cursor.execute(
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
                 tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,cp_name, partno, revno, serialno, "C")
+                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
+                cp_name, partno, revno, serialno, "C")
             cursor.commit()
             cursor.close()
             result = "data validated"
@@ -1077,8 +1049,8 @@ def process_validate(request, tplno, fabno, employee_details_list):
             cursor.execute(
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Model],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
                 tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,"CP_CONTROL_PANEL", partno, revno, serialno, model, "C")
-
+                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
+                "CP_CONTROL_PANEL", partno, revno, serialno, model, "C")
             cursor.commit()
             cursor.close()
             result = "data validated"
@@ -1100,9 +1072,7 @@ def process_validate(request, tplno, fabno, employee_details_list):
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
                 tplno, fabno,
                 employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-
                 "CP_COOLER", partno, revno, serialno, "C")
-
             cursor.commit()
             cursor.close()
             result = "data validated"
@@ -1126,9 +1096,7 @@ def process_validate(request, tplno, fabno, employee_details_list):
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[BeltDetails_Batchone],[BeltDetails_Batchtwo],[BeltDetails_Batchthree],[BeltDetails_Make],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 tplno, fabno,
                 employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-
                 "CP_BELT_DETAILS", partno, revno, batchone, batchtwo, batchthree, make, "C")
-
             cursor.commit()
             cursor.close()
             result = "data validated"
@@ -1216,8 +1184,8 @@ def process_validate(request, tplno, fabno, employee_details_list):
             cursor.execute(
                 "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[FANMOTOR_kw],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
                 tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,"CP_FAN_MOTOR", partno, revno, serialno, kw, "C")
-
+                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
+                "CP_FAN_MOTOR", partno, revno, serialno, kw, "C")
             cursor.commit()
             cursor.close()
             result = "data validated"
@@ -1341,558 +1309,6 @@ def process_validate(request, tplno, fabno, employee_details_list):
             tplno, fabno,
             employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
             "SUBMIT", "SUBMIT", "c")
-
-
-        cursor.commit()
-        cursor.close()
-        result = "data validated"
-
-    else:
-        result = "data not validated"
-        print("result", result)
-        return result
-
-
-def alphalinesample(request):
-    return render(request, 'stations/stationsample.html')
-
-
-def station20(request):
-    return render(request, 'stations/station20.html')
-
-
-# for api
-def process_validate_api(fabno, tplno, empname, empid, process_seqno, process_code, process_data, actual_time):
-    cursor = db_connection()
-    result = ""
-
-    if "CP_AIREND" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_CONTROL_PANEL" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        model = process_data["model"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Model],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, model, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_COOLER" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_BELT_DETAILS" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        batchone = process_data["beltdetails_bone"]
-        batchtwo = process_data["beltdetails_btwo"]
-        batchthree = process_data["beltdetails_bthree"]
-        make = process_data["beltdetails_make"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[BeltDetails_Batchone],[BeltDetails_Batchtwo],[BeltDetails_Batchthree],[BeltDetails_Make],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?,?,??)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, batchone, batchtwo, batchthree, make, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_DRIVE_PULLEY" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_DRIVEN_PULLEY" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_DRYER" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_FAN_MOTOR" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        kw = process_data["fanmotor_kw"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[FANMOTOR_kw],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, kw, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_MOTOR" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        motor_efficiency = process_data["motor_efficiency"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Motor_Efficency],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, motor_efficiency, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_NEURON" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_VFD" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "CP_TANK" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-
-        partno = process_data["Partno"]
-        revno = process_data["Revno"]
-        serialno = process_data["Serialno"]
-        cp_details_result = cp_details_check(revno, partno, fabno, process_code)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, partno, revno, serialno, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-    elif "SUBMIT" == process_code:
-        process_data = ast.literal_eval(process_data)
-        print("process_data", type(process_data))
-        # submit = process_data["SUBMIT"]
-        cp_details_result = "data_validated"
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[SUBMIT],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                empname, empid, process_seqno,
-                process_code, process_code, actual_time, "c")
-            cursor.commit()
-            cursor.close()
-        return cp_details_result
-
-    '''
-    if "CP_CONTROL_PANEL" == process_code:
-        cp_name="CP_CONTROL_PANEL"
-        partno = request.POST["controlpanel_partno"]
-        revno = request.POST["controlpanel_revno"]
-        serialno = request.POST["controlpanel_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Model],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"],process_seqno,
-                "CP_CONTROL_PANEL", partno, revno,serialno,model, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result",result)
-    '''
-    '''
-    if request.method == "POST" and "CP_COOLER" in request.POST["process"]:
-        partno = request.POST["cooler_partno"]
-        revno = request.POST["cooler_revno"]
-        serialno = request.POST["cooler_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"],process_seqno,
-                "CP_COOLER", partno, revno, serialno, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-    '''
-    '''
-    if request.method == "POST" and "CP_BELT_DETAILS" in request.POST["process"]:
-        partno = request.POST["beltdetails_partno"]
-        revno = request.POST["beltdetails_revno"]
-        batchone = request.POST["beltdetails_bone"]
-        batchtwo = request.POST["beltdetails_btwo"]
-        batchthree = request.POST["beltdetails_bthree"]
-        make = request.POST["beltdetails_make"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[BeltDetails_Batchone],[BeltDetails_Batchtwo],[BeltDetails_Batchthree],[BeltDetails_Make],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"],process_seqno,
-                "CP_BELT_DETAILS", partno, revno, batchone, batchtwo, batchthree, make,"c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result",result)
-    '''
-    '''
-    if request.method == "POST" and "CP_DRIVE_PULLEY" in request.POST["process"]:
-        partno = request.POST["drivepulley_partno"]
-        revno = request.POST["drivepulley_revno"]
-        serialno = request.POST["drivepulley_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_DRIVE_PULLEY", partno, revno, serialno, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_DRIVEN_PULLEY" in request.POST["process"]:
-        partno = request.POST["drivenpulley_partno"]
-        revno = request.POST["drivenpulley_revno"]
-        serialno = request.POST["drivenpulley_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Model],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_DRIVEN_PULLEY", partno, revno, serialno, model, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_DRYER" in request.POST["process"]:
-        partno = request.POST["dryer_partno"]
-        revno = request.POST["dryer_revno"]
-        serialno = request.POST["dryer_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_DRYER", partno, revno, serialno, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_FAN_MOTOR" in request.POST["process"]:
-        partno = request.POST["fanmotor_partno"]
-        revno = request.POST["fanmotor_revno"]
-        serialno = request.POST["fanmotor_serialno"]
-        kw = request.POST["fanmotor_kw"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[FANMOTOR_kw],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_FAN_MOTOR", partno, revno, serialno,kw, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_MOTOR" in request.POST["process"]:
-        partno = request.POST["motor_partno"]
-        revno = request.POST["motor_revno"]
-        serialno = request.POST["motor_serialno"]
-        motor_efficiency = request.POST["motor_efficiency"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cp_name = request.POST["process"]
-        cp_details_result = cp_details_check(revno, partno, fabno, cp_name)
-
-        if cp_details_result == "data_validated":
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Motor_Efficency],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_MOTOR", partno, revno, serialno,motor_efficiency, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_NEURON" in request.POST["process"]:
-        partno = request.POST["neuron_partno"]
-        revno = request.POST["neuron_revno"]
-        serialno = request.POST["neuron_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        ln_cp_details_query = """SELECT * FROM [TT].[dbo].[LN_CP_Details] WHERE Fab_Number='AUES034896' AND Child_Part_Code = 'CP_NEURON'"""
-
-        ln_cp_details = [{
-            "Part_No": obj[1],
-            "Rev_No": obj[2],
-        } for obj in cursor.execute(ln_cp_details_query)]
-        print("post request in CP_NEURON", request.POST)
-        # print("post data",request.POST["part_no"],request.POST["rev_no"])
-        print("cp_details", ln_cp_details)
-        if revno == ln_cp_details[0]["Rev_No"] and partno == ln_cp_details[0]["Part_No"]:
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_NEURON", partno, revno, serialno, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_VFD" in request.POST["process"]:
-        partno = request.POST["vfd_partno"]
-        revno = request.POST["vfd_revno"]
-        serialno = request.POST["vfd_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        ln_cp_details_query = """SELECT * FROM [TT].[dbo].[LN_CP_Details] WHERE Fab_Number='AUES034896' AND Child_Part_Code = 'CP_VFD'"""
-
-        ln_cp_details = [{
-            "Part_No": obj[1],
-            "Rev_No": obj[2],
-        } for obj in cursor.execute(ln_cp_details_query)]
-        print("post request in CP_VFD", request.POST)
-        # print("post data",request.POST["part_no"],request.POST["rev_no"])
-        print("cp_details", ln_cp_details)
-        if revno == ln_cp_details[0]["Rev_No"] and partno == ln_cp_details[0]["Part_No"]:
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_VFD", partno, revno, serialno, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "CP_TANK" in request.POST["process"]:
-        partno = request.POST["tank_partno"]
-        revno = request.POST["tank_revno"]
-        serialno = request.POST["tank_serialno"]
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        ln_cp_details_query = """SELECT * FROM [TT].[dbo].[LN_CP_Details] WHERE Fab_Number='AUES034896' AND Child_Part_Code = 'CP_TANK'"""
-
-        ln_cp_details = [{
-            "Part_No": obj[1],
-            "Rev_No": obj[2],
-        } for obj in cursor.execute(ln_cp_details_query)]
-        print("post request in CP_TANK", request.POST)
-        # print("post data",request.POST["part_no"],request.POST["rev_no"])
-        print("cp_details", ln_cp_details)
-        if revno == ln_cp_details[0]["Rev_No"] and partno == ln_cp_details[0]["Part_No"]:
-            cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Part_No],[Rev_No],[Serial_No],[Process_Status]) values (?,?,?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "CP_TANK", partno, revno, serialno, "c")
-            cursor.commit()
-            cursor.close()
-            result = "data validated"
-        else:
-            result = "data not validated"
-        print("result", result)
-    '''
-    '''
-    if request.method == "POST" and "SUBMIT" in request.POST["process"]:
-
-        process_seqno = int(request.POST["process_seq_no"]) + 1
-
-        cursor.execute(
-                "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[SUBMIT],[Process_Status]) values (?,?,?,?,?,?,?,?)",
-                tplno, fabno,
-                employee_details_list[0]["Emp_Name"], employee_details_list[0]["Emp_ID"], process_seqno,
-                "SUBMIT", "SUBMIT" ,"c")
-
         cursor.commit()
         cursor.close()
         result = "data validated"
@@ -1901,8 +1317,6 @@ def process_validate_api(fabno, tplno, empname, empid, process_seqno, process_co
         result = "data not validated"
     print("result", result)
     return result
-    '''
-
 
 
 # for api
@@ -1913,10 +1327,10 @@ def process_validate_api(type, fabno, tplno, empname, empid, process_seqno, proc
     if type == "unit_skip":
         print("")
         cursor.execute(
-            "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Process_Status]) values (?,?,?,?,?,?,?)",
+            "insert into [TT].[dbo].[Process_Update_Table] ([TPL_No],[Fab_No],[Emp_Name],[Emp_ID],[Process_Seq_No],[Process_Code],[Actual_Time],[Process_Status]) values (?,?,?,?,?,?,?,?)",
             tplno, fabno,
             empname, empid, process_seqno,
-            process_code, "S")
+            process_code, actual_time, "S")
         cursor.commit()
         cursor.close()
         return "unit_skip"
@@ -2601,34 +2015,10 @@ def substation_api(request):
     return HttpResponse("SUBSTATION API")
 
 
-def alphalinesample(request):
-    return render(request, 'stations/stationsample.html')
-
-
-
-# for api
-def substation_page(request):
-    json = {
-        "employee_details": {
-            "Emp_Name": "",
-            "Emp_ID": "",
-            "Skill_level": "",
-            "Emp_Image": ""
-        },
-        "process_details": {
-            "Fab_No": "",
-            "TPL_No": "",
-            "cycle_time": "",
-        }
-    }
-
-    return render(request, 'stations/substation.html', json)
-
-
-# for api
 @csrf_exempt
-def substation_api(request):
-    if request.method == "POST" and "process_submit" == request.POST["method"]:
+def torque_api(request):
+    print("TORQUE API")
+    if request.method == "POST" and "torque_status" == request.POST["method"]:
         fabno = request.POST["FAB_NO"]
         tplno = request.POST["TPL_No"]
         empname = request.POST["Emp_Name"]
@@ -2636,44 +2026,24 @@ def substation_api(request):
         process_seqno = request.POST["Process_Seq_No"]
         process_code = request.POST["Pro_Type_Code"]
         process_data = request.POST["process_data"]
+        card_type = request.POST["card_type"]
         actual_time = request.POST["Actual_Time"]
 
-        result = process_validate_api(fabno, tplno, empname, empid, process_seqno, process_code, process_data,
-                                      actual_time)
-
-        if result == "data_validated":
-            process_seq_data = finding_seq(tplno, fabno)
-            json = {
-                "process_validation": "Success",
-                "process_seq": process_seq_data
-            }
-            return JsonResponse(json)
-        else:
-            json = {
-                "process_validation": "Fail",
-                "Message": result
-            }
-            return JsonResponse(json)
-    if request.method == "POST" and "process_seq" == request.POST["method"]:
-        tplno = request.POST["Tpl_No"]
-        fabno = request.POST["Fab_No"]
-
-        process_seq_data = finding_seq(tplno, fabno)
         json = {
-            "process_seq": process_seq_data
+            "connection_status": "Active",
+            "tool_connection": "Online",
+            "app_status": "Matched",
+            "tool_status": "Enabled",
+            "tool_working": "Running",
+            "tool_output": "Pass",
+            "actual_torque": 9,
+            "required_torque": 10
         }
         return JsonResponse(json)
-    if request.method == "POST" and "unit_skip" == request.POST["method"]:
-        print("unit skip")
-    if request.method == "POST" and "process_skip" == request.POST["method"]:
-        print("process skip")
-
-    # if request.method == "POST":
-    #     print("POST request",request.POST)
-    #     return HttpResponse("POST")
-    return HttpResponse("SUBSTATION API")
 
 
+def alphalinesample(request):
+    return render(request, 'stations/stationsample.html')
 ###############################################
 
 def pdi_master(request):

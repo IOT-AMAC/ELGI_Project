@@ -181,7 +181,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="width: 110px;">Part No</td>
-                                                    <td><input type="text" id="txtCpAirend_PartNo" autofocus></td>
+                                                    <td><input type="text" id="txtCpAirend_PartNo"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>REV No</td>
@@ -356,12 +356,12 @@
                                                 <button style="width: 140px; height:65px; font-size: 0.9em;" class="my-1 btn btn-primary btn-lg"
                                                     type="button" data-bs-toggle="offcanvas"
                                                     data-bs-target="#offcanvasTop"
-                                                    aria-controls="offcanvasTop">Process Skip</button>
+                                                    aria-controls="offcanvasTop" id="processskip">Process Skip</button>
                                             </div>
                                             <div class="d-flex flex-wrap gap-2 justify-content-center">
                                                 <button style="width: 140px; height:50px; font-size: 0.9em;" class="my-1 btn btn-primary btn"
                                                     type="button" data-bs-toggle="offcanvas"
-                                                    data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Unit Skip</button>
+                                                    data-bs-target="#offcanvasTop" aria-controls="offcanvasTop" id="unitskip">Unit Skip</button>
                                             </div>
                                         </div>
                                     </div>
@@ -734,8 +734,9 @@
         <script src"{% static 'js/pages/modal.init.js' %}"></script>
 
         <script src="{% static 'js/app.js' %}"></script>
-
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
         <!-- Screen change API -->
+       
         <script>
             var restAPI = {
                 substationapi: "http://20.212.149.30:8000/substationapi",
@@ -752,6 +753,7 @@
             var actTimeMin = 0;
             var actTimeSec = 0;
             var timeArr = [];
+            var actual_time_unit=0;
             var subTaktTmrSecs = 0; //Seconds for Takt Timer. 
 
             /*======================================
@@ -844,7 +846,7 @@
             function setSUBMIT_Data(retVal) {
                 //console.log(retVal);
                 //$("#imgTop").attr('src', retVal.Process_Photo_Path);
-                console.log("Setting Submit Data...");
+                //console.log("Setting Submit Data...");
 
                 $("#lblFAB").text(retVal.FAB_NO);
                 $("#lblTPL").text(retVal.TPL_No);
@@ -869,7 +871,8 @@
 
                 //Hide the Submit Button.
                 $("#divSubmitBtn").hide();
-
+                //console.log("submit");
+                //console.log(retVal.Actual_Time);
                 subTaktTmrSecs = 0; //Reset Submit Timer.
                 ActTimerRestart(retVal.Actual_Time); //Start the Timer.
             }
@@ -932,12 +935,12 @@
                                     showStaticModal("Process Fail", retVal.Message);
                                 }
                             } else {
-                                console.log("Issue calling API");
+                                //console.log("Issue calling API");
                             }
                         }
                     }, 
                     error: function (jqXhr, textStatus, errorMessage) {
-                        console.log("Error making initial API Call!");
+                        //console.log("Error making initial API Call!");
                     }
                 });
 
@@ -965,7 +968,7 @@
                     beltdetails_make: $("#ddCpBeltDet_BltMake").val(),
                 });
 
-                console.log(apiSendData);
+                //console.log(apiSendData);
                 //console.log(restAPI.substationapi);
 
                 $.ajax(restAPI.substationapi, {
@@ -974,8 +977,8 @@
                     data: apiSendData,
 
                     success: function (retVal, status, xhr) {
-                        console.log("Success");
-                        console.log(retVal);
+                        //console.log("Success");
+                        //console.log(retVal);
 
                         if(!IfUndefinedOrNull(retVal.process_seq)) { //If we have valid response with Process sequence coming in.
                             //console.log(retVal.process_seq.Pro_Type_Code);
@@ -994,12 +997,12 @@
                                     showStaticModal("Process Fail", retVal.Message);
                                 }
                             } else {
-                                console.log("Issue calling API");
+                                //console.log("Issue calling API");
                             }
                         }
                     }, 
                     error: function (jqXhr, textStatus, errorMessage) {
-                        console.log("Error making initial API Call!");
+                        //console.log("Error making initial API Call!");
                     }
                 });
 
@@ -1089,8 +1092,8 @@
                     data: apiSendData,
 
                     success: function (retVal, status, xhr) {
-                        console.log("Success");
-                        console.log(retVal);
+                        //console.log("Success");
+                        //console.log(retVal);
 
                         if(!IfUndefinedOrNull(retVal.process_seq)) { //If we have valid response with Process sequence coming in.
                             //console.log(retVal.process_seq.Pro_Type_Code);
@@ -1109,13 +1112,13 @@
                                     showStaticModal("Process Fail", retVal.Message);
                                 }
                             } else {
-                                console.log("Issue calling API");
+                                //console.log("Issue calling API");
                             }
                         }
                     }, 
                     error: function (jqXhr, textStatus, errorMessage) {
-                        console.log("Error making initial API Call!");
-                        console.log(errorMessage);
+                        //console.log("Error making initial API Call!");
+                        //console.log(errorMessage);
                     }
                 });
             }
@@ -1135,7 +1138,9 @@
             //Timer Start/Re-Start
             function ActTimerRestart(actTimeMmSs) {
                 //console.log("Inside Act Timer Restart" + actTimeMmSs);
-                
+                //if(actTimeMmSs == null)
+                    //actTimeMmSs="0:16"
+                //console.log(actTimeMmSs);
                 //Set Start-Time. 
                 timeArr = actTimeMmSs.split(":"); //Assuming Time will come in MM:SS format.
                 actTimeMin = parseInt(timeArr[0]);
@@ -1174,7 +1179,7 @@
                         $("#lblActTimeTmr").addClass("red-timer");
                     }
 
-
+                   //console.log(PROCESS_TYPE);
                     // Only for the Submit Screen. 
                     if(PROCESS_TYPE === 'SUBMIT') {
                         subTaktTmrSecs = subTaktTmrSecs + 1; //Increase the Timer.
@@ -1224,7 +1229,7 @@
 
             //Set Barcode Values back to textboxes
             function setBarCodeValues() {
-                console.log("Setting Barcode values, Process Type: " + PROCESS_TYPE);
+                //console.log("Setting Barcode values, Process Type: " + PROCESS_TYPE);
                 switch(PROCESS_TYPE) {
                     case "CP_AIREND":
                         $("#txtCpAirend_PartNo").val(BarCodeArray[0]);
@@ -1369,7 +1374,6 @@
                                 //console.log(PROCESS_TYPE);
                             }
                             showScreenByProcessType(PROCESS_TYPE, retVal.process_seq);
-                            setOnLoadCursor(); //Set the cursor to right form after load
                         } else {
                             if(!IfUndefinedOrNull(retVal.process_validation)) { //We have a validation failure
                                 if(retVal.process_validation === 'Fail') {
@@ -1377,14 +1381,163 @@
                                     showStaticModal("Process Fail", retVal.Message);
                                 }
                             } else {
-                                console.log("Issue calling API");
+                                //console.log("Issue calling API");
                             }
                         }
                     }, 
                     error: function (jqXhr, textStatus, errorMessage) {
-                        console.log("Error making initial API Call!");
+                        //console.log("Error making initial API Call!");
                     }
                 });
+                //setOnLoadCursor(); //Set the cursor to right form after load
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+
+                /**********Unit Process script code start*************/
+
+                $("#unitskip").click(function() {
+                    var apiSendData = new Object();
+                    var method="unit_skip";
+                    var station_id = $("#lblStationId").text();
+                    var fab_no = $("#lblFAB").text();
+                    var tpl_no = $("#lblTPL").text();
+                    var emp_name = $("#lblEmpName").text();
+                    var emp_id = $("#lblEmpId").text();
+                    var process_seq_no = $("#lblProcSeqNo").text();
+                    var pro_type_code = $("#lblProcType").text();
+                   // var actual_time = $("#lblActTimeTmr").text();
+                   var actual_time = actTimeMin.toString().padStart(2, '0') + ":" + actTimeSec.toString().padStart(2, '0');
+                    //alert(actual_time);
+                    var process_data = "";   
+                    apiSendData.method = method;
+                    apiSendData.station_id = station_id;
+                    apiSendData.FAB_NO = fab_no;
+                    apiSendData.TPL_No = tpl_no;
+                    apiSendData.Emp_Name = emp_name;
+                    apiSendData.Emp_ID = emp_id;
+                    apiSendData.Process_Seq_No = process_seq_no;
+                    apiSendData.Pro_Type_Code = pro_type_code;
+                    apiSendData.Actual_Time = actual_time;
+                    apiSendData.process_data = process_data;
+                   $.ajax({
+                        type: "POST",
+                        url: "http://20.212.149.30:8000/substationapi",
+                        data: apiSendData,// now data come in this function
+                        dataType: "json",
+                        success: function (retVal, status, xhr) {
+                            /*console.log(retVal);
+                            console.log("Success");
+                            console.log(retVal);*/
+    
+                            if(!IfUndefinedOrNull(retVal.process_seq)) { //If we have valid response with Process sequence coming in.
+                                //console.log(retVal.process_seq.Pro_Type_Code);
+                                //Show the Div based on the value received from Django Backend
+                                if (retVal.process_seq === "seq_complete") {
+                                    PROCESS_TYPE = retVal.process_seq;
+                                } else {
+                                    PROCESS_TYPE = retVal.process_seq.Pro_Type_Code;
+                                }
+                               
+                                //console.log(retVal.Actual_Time);
+                                hideAllScreens(); //Hide All the screens before showing next screen.
+                                showScreenByProcessType(PROCESS_TYPE, retVal.process_seq);
+                             
+                            } else {
+                                if(!IfUndefinedOrNull(retVal.process_validation)) { //We have a validation failure
+                                    if(retVal.process_validation === 'Fail') {
+                                        //Show the dialog box.
+                                        showStaticModal("Process Fail", retVal.Message);
+                                    }
+                                } else {
+                                    //console.log("Issue calling API");
+                                }
+                            }
+                        },
+                        error: function (jqXHR, status) {
+                            // error handler
+                            //console.log(jqXHR);
+                            alert('fail' + status.code);
+                        }
+                     }); 
+                });
+            
+            /**********Unit Skip Script Code End*************/
+ 
+            /********** Process Skip script code start*************/
+
+            $("#processskip").click(function() {
+                    var apiSendData = new Object();
+
+                    var method="process_skip";
+                    var station_id = $("#lblStationId").text();
+                    var fab_no = $("#lblFAB").text();
+                    var tpl_no = $("#lblTPL").text();
+                    var emp_name = $("#lblEmpName").text();
+                    var emp_id = $("#lblEmpId").text();
+                    var process_seq_no = $("#lblProcSeqNo").text();
+                    var pro_type_code = $("#lblProcType").text();
+
+                   // var actual_time = $("#lblActTimeTmr").text();
+                   var actual_time = actTimeMin.toString().padStart(2, '0') + ":" + actTimeSec.toString().padStart(2, '0');
+                    //alert(actual_time);
+                    var process_data = "";   
+                    apiSendData.method = method;
+                    apiSendData.station_id = station_id;
+                    apiSendData.FAB_NO = fab_no;
+                    apiSendData.TPL_No = tpl_no;
+                    apiSendData.Emp_Name = emp_name;
+                    apiSendData.Emp_ID = emp_id;
+                    apiSendData.Process_Seq_No = process_seq_no;
+                    apiSendData.Pro_Type_Code = pro_type_code;
+                    apiSendData.Actual_Time = actual_time;
+                    apiSendData.process_data = process_data;
+                   $.ajax({
+                        type: "POST",
+                        url: "http://20.212.149.30:8000/substationapi",
+                        data: apiSendData,// now data come in this function
+                        dataType: "json",
+                        success: function (retVal, status, xhr) {
+                            /*console.log(retVal);
+                            console.log("Success");
+                            console.log(retVal);*/
+    
+                            if(!IfUndefinedOrNull(retVal.process_seq)) { //If we have valid response with Process sequence coming in.
+                                //console.log(retVal.process_seq.Pro_Type_Code);
+                                //Show the Div based on the value received from Django Backend
+                                if (retVal.process_seq === "seq_complete") {
+                                    PROCESS_TYPE = retVal.process_seq;
+                                } else {
+                                    PROCESS_TYPE = retVal.process_seq.Pro_Type_Code;
+                                }
+                               
+                                //console.log(retVal.Actual_Time);
+                                hideAllScreens(); //Hide All the screens before showing next screen.
+                                showScreenByProcessType(PROCESS_TYPE, retVal.process_seq);
+                             
+                            } else {
+                                if(!IfUndefinedOrNull(retVal.process_validation)) { //We have a validation failure
+                                    if(retVal.process_validation === 'Fail') {
+                                        //Show the dialog box.
+                                        showStaticModal("Process Fail", retVal.Message);
+                                    }
+                                } else {
+                                    //console.log("Issue calling API");
+                                }
+                            }
+                        },
+                        error: function (jqXHR, status) {
+                            // error handler
+                            //console.log(jqXHR);
+                            alert('fail' + status.code);
+                        }
+                     }); 
+                });
+            
+            /**********Process Skip Script Code End*************/
+ 
+
             });
         </script>
     </body>
