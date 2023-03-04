@@ -876,23 +876,15 @@ def substation(request, tplno, fabno):
     cursor = db_connection()
     process_seq_list = []
     user_name = "100213"
+    base_url = r"/static/images/users/"
 
     employee_details_query = """ SELECT * FROM [TT].[dbo].[Employee_Details_View] WHERE User_Name=? """
     employee_details_list = [{
         "Emp_ID": obj[0],
         "Emp_Name": obj[1],
-        "Skill_Level": obj[2]
+        "Skill_Level": obj[2],
+        "Emp_Img":obj[4]
     } for obj in cursor.execute(employee_details_query, user_name)]
-
-    json = {
-        "process_type": "default",
-        "employee_details": {
-            "Emp_Name": employee_details_list[0]["Emp_Name"],
-            "Emp_ID": employee_details_list[0]["Emp_ID"],
-            "Skill_level": employee_details_list[0]["Skill_Level"]
-        },
-
-    }
 
     process_seq_data = finding_seq(tplno, fabno)
     print("process_seq_data", process_seq_data)
@@ -905,7 +897,8 @@ def substation(request, tplno, fabno):
         "employee_details": {
             "Emp_Name": employee_details_list[0]["Emp_Name"],
             "Emp_ID": employee_details_list[0]["Emp_ID"],
-            "Skill_level": employee_details_list[0]["Skill_Level"]
+            "Skill_level": employee_details_list[0]["Skill_Level"],
+            "Emp_Img": base_url + employee_details_list[0]["Emp_Img"]
         },
         "process_seq": process_seq_data
     }
@@ -914,7 +907,7 @@ def substation(request, tplno, fabno):
 
 def finding_seq(tplno, fabno):
     cursor = db_connection()
-    base_url = r"static/images/users/"
+    base_url = r"D:/Web/Folder_Share/IMG/Process_Picture/Process_Picture1/New folder/"
     completed_seq_no_query = """ SELECT Process_Seq_No FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND Fab_No = ? ORDER BY Process_Seq_No ASC """
     completed_seq_no_list = [obj[0] for obj in cursor.execute(completed_seq_no_query, tplno, fabno)]
     process_seq_no_query = """SELECT Process_Seq_No FROM [TT].[dbo].[Sub_Station_Screens_Data_View] WHERE TPL_No = ? AND FAB_NO = ? ORDER BY Process_Seq_No ASC"""

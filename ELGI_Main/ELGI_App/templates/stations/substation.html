@@ -93,20 +93,20 @@
                             <div class="col-md-12 align-self-center card bg-dark border-dark text-light" style="height: 140px; padding: 5px;"> <!-- CARD -->
                                 <div class="row">
                                     <div class="col-md-2 align-self-center"> <!-- IMAGE COLUMN -->
-                                        <img id="imgTop" alt="Top Image" class="img-fluid rounded top-img" src="{% static 'images/users/300-1.png' %}">
+                                        <img id="imgTop" alt="Top Image" class="img-fluid rounded top-img" src="{{employee_details.Emp_Img}}">
                                     </div> <!-- IMAGE COLUMN ENDS -->
                                     <div class="col-md-10"> <!-- CONTENT COLUMN -->
                                         <table style="width: 100%;">
                                             <tr>
                                                 <td class="text-white-50">Emp. Name</td>
-                                                <td id="lblEmpName">Abhay</td>
+                                                <td id="lblEmpName">{{employee_details.Emp_Name}}</td>
                                                 <td>&nbsp;</td>
                                                 <td class="text-white-50">FAB</td>
-                                                <td id="lblFAB">AUES034896</td>
+                                                <td id="lblFAB">{{process_seq.FAB_NO}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-white-50">Emp. ID</td>
-                                                <td id="lblEmpId">3400</td>
+                                                <td id="lblEmpId">{{employee_details.Emp_ID}}</td>
                                                 <td>&nbsp;</td>
                                                 <td class="text-white-50">Station ID</td>
                                                 <td id="lblStationId">SS1</td>
@@ -1424,7 +1424,7 @@
                     apiSendData.process_data = process_data;
                    $.ajax({
                         type: "POST",
-                        url: "http://20.212.149.30:8000/substationapi",
+                        url: "restAPI",
                         data: apiSendData,// now data come in this function
                         dataType: "json",
                         success: function (retVal, status, xhr) {
@@ -1496,7 +1496,7 @@
                     apiSendData.process_data = process_data;
                    $.ajax({
                         type: "POST",
-                        url: "http://20.212.149.30:8000/substationapi",
+                        url: "restAPI",
                         data: apiSendData,// now data come in this function
                         dataType: "json",
                         success: function (retVal, status, xhr) {
