@@ -120,7 +120,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-white-50">Process</td>
-                                                <td id="lblProcessDesc" colspan="4">undefined</td>
+                                                <td id="lblProcessDesc" colspan="4">{{process_seq.Process_Desc}}</td>
                                             </tr>
                                         </table>
                                     </div> <!-- CONTENT COLUMN ENDS -->
@@ -132,7 +132,7 @@
                         <div class="row" style="padding: 5px; height: 173px;">
                             <div class="col-md-12 card bg-dark border-dark text-light" style="font-size: 1.1em; text-align: center; padding: 5px;">
                                 <div class="text-white-50">Cycle Time</div>
-                                <div id="lblCycleTimeTmr">undefined</div>
+                                <div id="lblCycleTimeTmr">{{process_seq.Cycle_Time}}</div>
                                 <div class="text-white-50">Actual Time</div>
                                 <div id="lblActTimeTmr">0:16</div>
                             </div>
@@ -163,9 +163,9 @@
                                     <div class="col-md-4">Completed Process</div>
                                 </div>
                                 <div class="row text-center">
-                                    <div id="lblProcType" class="col-md-4">N/A</div>
-                                    <div id="lblTotalProc" class="col-md-4">10</div>
-                                    <div id="lblCompProc" class="col-md-4">0</div>
+                                    <div id="lblProcType" class="col-md-4">{{process_seq.Pro_Type_Code}}</div>
+                                    <div id="lblTotalProc" class="col-md-4">{{process_seq.Total_Processes}}</div>
+                                    <div id="lblCompProc" class="col-md-4">{{process_seq.Completed_Process}}</div>
                                 </div>
                             </div>
                         </div> <!-- PROCESS TYPE TABLE ENDS -->
@@ -1717,7 +1717,7 @@
         <!-- Screen change API -->
         <script>
             var restAPI = {
-                substationapi: "http://20.212.149.30:8000/substationapi",
+                substationapi: "http://17.16.32.186:8000/substationapi",
             };
 
             var PROCESS_TYPE = "CP_AIREND"; //DEFAULT PROCESS TYPE. Coming from Django during Page Load.
@@ -1750,7 +1750,7 @@
             /// SET SCREEN DATA STARTS ....
             ======================================*/
             function setCP_AIREND_Data(retVal) {
-                //console.log(retVal);
+                console.log(retVal);
                 //$("#imgTop").attr('src', retVal.Process_Photo_Path);
 
                 $("#lblFAB").text(retVal.FAB_NO);
@@ -2476,8 +2476,8 @@
                 Serialno: $("#txtCpAirend_SrNo").val(),
             });
 
-            //console.log(apiSendData);
-            //console.log(restAPI.substationapi);
+            console.log(apiSendData);
+            console.log(restAPI.substationapi);
 
             $.ajax(restAPI.substationapi, {
                 dataType: 'json',
@@ -4567,8 +4567,8 @@
                 apiSendData.Tpl_No = $("#lblTPL").text();
                 apiSendData.Fab_No = $("#lblFAB").text();
                 apiSendData.station_id = $("#lblStationId").text();
-                //console.log(apiSendData);
-                //console.log(restAPI.substationapi);
+                console.log(apiSendData);
+                console.log(restAPI.substationapi);
 
 
 

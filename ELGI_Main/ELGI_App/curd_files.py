@@ -37,22 +37,22 @@ def db_connection():
 #
 #
 # update
+# cursor = db_connection()
+# cursor.execute(
+#     """
+#     UPDATE [TT].[dbo].[Process_Master]
+#    SET "Process_Photo_Path" = ?
+#  WHERE Process_Code = ?""", "Channel assembly.jpg", "CP_COOLER_PROCESS")
+# cursor.commit()
+
+#
+# delete
 cursor = db_connection()
 cursor.execute(
     """
-    UPDATE [TT].[dbo].[Process_Master]
-   SET "Process_Photo_Path" = ?
- WHERE Process_Code = ?""", "Channel assembly.jpg", "CP_COOLER_PROCESS")
+    DELETE FROM [TT].[dbo].[Process_Update_Table]
+    """)
 cursor.commit()
-
-#
-# # delete
-# # cursor = db_connection()
-# # cursor.execute(
-# #     """
-# #     DELETE FROM [TT].[dbo].[Process_Master]
-# #     WHERE Process_Code = ?""", "gvk")
-# cursor.commit()
 
 
 # update

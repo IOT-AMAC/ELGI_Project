@@ -887,7 +887,7 @@ def substation(request, tplno, fabno):
     } for obj in cursor.execute(employee_details_query, user_name)]
 
     process_seq_data = finding_seq(tplno, fabno)
-    print("process_seq_data", process_seq_data)
+
 
     if process_seq_data == "seq_complete":
         return redirect(station_order_release)
@@ -902,12 +902,13 @@ def substation(request, tplno, fabno):
         },
         "process_seq": process_seq_data
     }
-    return render(request, 'stations/substation.html', json)
+    print("json", json)
+    return render(request, 'stations/substation_base.html', json)
 
 
 def finding_seq(tplno, fabno):
     cursor = db_connection()
-    base_url = r"D:/Web/Folder_Share/IMG/Process_Picture/Process_Picture1/New folder/"
+    base_url = r"/static/images/process/"
     completed_seq_no_query = """ SELECT Process_Seq_No FROM [TT].[dbo].[Process_Update_Table] WHERE TPL_No = ? AND Fab_No = ? ORDER BY Process_Seq_No ASC """
     completed_seq_no_list = [obj[0] for obj in cursor.execute(completed_seq_no_query, tplno, fabno)]
     process_seq_no_query = """SELECT Process_Seq_No FROM [TT].[dbo].[Sub_Station_Screens_Data_View] WHERE TPL_No = ? AND FAB_NO = ? ORDER BY Process_Seq_No ASC"""
@@ -1882,22 +1883,6 @@ def process_validate_api(type, fabno, tplno, empname, empid, process_seqno, proc
 
 
 # for api
-def substation_page(request):
-    json = {
-        "employee_details": {
-            "Emp_Name": "",
-            "Emp_ID": "",
-            "Skill_level": "",
-            "Emp_Image": ""
-        },
-        "process_details": {
-            "Fab_No": "",
-            "TPL_No": "",
-            "cycle_time": "",
-        }
-    }
-
-    return render(request, 'stations/substation.html', json)
 
 
 # for api
@@ -2030,7 +2015,10 @@ def torque_api(request):
 
 
 def alphalinesample(request):
-    return render(request, 'stations/stationsample.html')
+    return render(request, 'stations/substation_mayank.html')
+
+def substation_base(request):
+    return render(request, 'stations/substation_base.html')
 ###############################################
 
 def pdi_master(request):

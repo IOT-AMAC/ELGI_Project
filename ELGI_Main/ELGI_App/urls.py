@@ -63,6 +63,7 @@ urlpatterns =[
     #path('station20', views.station20, name="station20"),
     path('alphalinesample', views.alphalinesample, name="alphalinesample page"),
     path('substationapi',views.substation_api, name="sub station api"),
+    path('substationbase',views.substation_base, name="substationbase"),
 
     path('torque', views.torque_test, name="torque_test_page"),
     # path('del_record/<str:db>/<str:uid>', views.del_record, name="del_record"),
