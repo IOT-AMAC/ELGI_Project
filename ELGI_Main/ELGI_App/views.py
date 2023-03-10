@@ -33,7 +33,14 @@ def station_bypass(request):
         substationcode = request.POST.get('substationcode')
         bypass = request.POST.get('bypass')
 
-    cursor.commit()
+        cursor.execute(
+            """
+            UPDATE [dbo].[Sub_Station]
+            SET [By_pass] = ?
+            WHERE [Sub_Station_Code] = ?
+            """, bypass, substationcode)
+
+        cursor.commit()
 
     station_bypass_details = cursor.execute(
         """SELECT [Sub_Station_Code],[Station_Name],[Station_Purpose],[By_pass] FROM [TT].[dbo].[Sub_Station]""")
