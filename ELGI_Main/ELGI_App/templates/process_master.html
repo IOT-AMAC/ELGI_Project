@@ -358,7 +358,7 @@
                                                                         
 
                                                                                 </script>
-                                                                                <input onclick="myFunction()" id="processbutton" class="form-check-input test" type="radio" name="Process_code_radio" id="flexRadioDefault1">
+                                                                                <input onclick="myFunction()" id="processbutton" class="form-check-input test" type="radio" name="radio_selection" value="process_code" id="flexRadioDefault1">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -389,7 +389,7 @@
                                                                                     }
                                                                         
                                                                                 </script>
-                                                                                <input onclick="myFunction2()" id="activebutton" class="form-check-input test2" type="radio" name="Process_code_radio" id="flexRadioDefault2" >
+                                                                                <input onclick="myFunction2()" id="activebutton" class="form-check-input test2" type="radio" name="radio_selection" value="active_tpl_code" id="flexRadioDefault2" >
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -469,7 +469,7 @@
                                                                                 {% for i in active_tpls_data%}
                                                                                     <tr>
                                                                                         <td></td>
-                                                                                        <td><a href="activetpllist" class="btn btn-link waves-effect" title="click">{{i.TPL_Code}}</a></td>
+                                                                                        <td><a href="activetpllist/{{i.TPL_Code}}/{{i.Operation_Code}}" class="btn btn-link waves-effect" title="click">{{i.TPL_Code}}</a></td>
                                                                                         <td>{{i.TPL_Description}}</td>
                                                                                         <td>{{i.No_of_Processes}}</td>
                                                                                         <td>{{i.Operation_Code}}</td>

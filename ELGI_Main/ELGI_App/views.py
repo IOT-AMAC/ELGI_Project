@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 
 from django.http import JsonResponse, HttpResponse
@@ -20,8 +22,8 @@ print("conn ", conn)
 # Create your views here.
 
 def db_connection():
-    conn = pyodbc.connect('DRIVER={SQL Server};SERVER=PROD-DF;DATABASE=TT;UID=MEI_DF;PWD=MEI@mac;Trusted_Connection=yes')
-    #conn = pyodbc.connect('DRIVER={SQL Server};SERVER=adama\SQLEXPRESS;DATABASE=TT;')
+    # conn = pyodbc.connect('DRIVER={SQL Server};SERVER=PROD-DF;DATABASE=TT;UID=MEI_DF;PWD=MEI@mac;Trusted_Connection=yes')
+    conn = pyodbc.connect('DRIVER={SQL Server};SERVER=adama\SQLEXPRESS;DATABASE=TT;')
     cursor = conn.cursor()
     return cursor
 
@@ -329,7 +331,7 @@ def process_master(request):
                 WHERE Process_Code = ?""", request.POST["Process_Code"])
             cursor.commit()
         try:
-            if request.POST["Process_code_radio"] == "on":
+            if request.POST["radio_selection"] == "process_code":
                 if request.POST["submit"] == "PM_Add":
                     cursor.execute(
                         """ INSERT INTO [TT].[dbo].[Process_Master_Mapping] (
@@ -343,9 +345,13 @@ def process_master(request):
                         request.POST["process_code"], request.POST["sequence_no"], "EL1_P1_L1")
                     cursor.commit()
 
+            if request.POST["radio_selection"] == "active_tpl_code":
+                if request.POST["submit"] == "PM_Add":
+                    copy_tpl_processes(request.POST["Active_TPL_Code"], request.POST["tpl_code"])
+
 
         except:
-            pass
+            print('error')
 
         # elif request.POST["submit"] == "PM_Modify":
         #     cursor.execute(
@@ -420,6 +426,29 @@ def process_master(request):
                    "active_tpls_data": active_tpls_data})
 
 
+
+def copy_tpl_processes(active_tpl,new_tpl):
+    cursor = db_connection()
+    active_tpl_details = cursor.execute(
+        """ SELECT * FROM [TT].[dbo].[Process_Master_Mapping] WHERE "TPL_No" = ?""",active_tpl)
+
+    new_tpl_list = [{"Model_Group":obj[0],"TPL_No":new_tpl,"Operator_Code":obj[2],"Process_Code":obj[3],"Process_Seq_No":obj[4],"Line_Code":obj[5]} for obj in active_tpl_details]
+    for element in new_tpl_list:
+        print(element)
+        cursor.execute(
+                   """ INSERT INTO [TT].[dbo].[Process_Master_Mapping] (
+            "Model_Group"
+          ,"TPL_No"
+          ,"Operator_Code"
+          ,"Process_Code"
+          ,"Process_Seq_No"
+          ,"Line_Code"
+          )VALUES (?,?,?,?,?,?)""",element["Model_Group"],element["TPL_No"],element["Operator_Code"],element["Process_Code"],element["Process_Seq_No"],element["Line_Code"])
+        cursor.commit()
+
+
+
+
 def active_tpl_list(request, tpl_code, operation_code):
     cursor = db_connection()
 
@@ -456,6 +485,80 @@ def active_tpl_list(request, tpl_code, operation_code):
     print(processes_list_data)
     return render(request, 'active_tpl_list.html', {"processes_list_data": processes_list_data})
 
+
+
+def tool_maintenance(request):
+    cursor = db_connection()
+    if request.method == "POST":
+        print("******************************")
+        for key, value in request.POST.items():
+            print('Key: %s' % (key))
+            print('Value %s' % (value))
+
+
+        if request.POST["submit"] == "Add":
+            print("Add group")
+
+            # ,"Tool_ID","Warning_Type","Set_Frequency","Act_Frequency","Created_Date","Reset_Date","Warning_Status", "Duration_Date"
+            #  ,?,?,?,?,?,?,
+            #                 ?,?  , ,int(request.POST["set_frequency"]),
+            #                 int(request.POST["actual_frequency"]),datetime.datetime.now().date(),datetime.datetime.now().date(),"N",request.POST["fdate"]
+
+            cursor.execute(
+                """INSERT INTO [TT].[dbo].[Tool_Maintainance] ("Line_Code" ,"Tool_ID","Warning_Type","Set_Frequency","Act_Frequency","Duration_Date","Created_Date"
+                ) VALUES (?,?,?,?,?,?,?)""", "EL1_P1_L1",request.POST["tool_id"],request.POST["warning_type"],request.POST["set_frequency"],request.POST["actual_frequency"],
+            request.POST["fdate"],str(datetime.datetime.now().date()))
+            cursor.commit()
+
+        elif request.POST["submit"] == "Modify":
+            cursor.execute(
+                """
+                UPDATE [TT].[dbo].[Tool_Maintainance]
+                SET "Warning_Type" = ?
+                    ,"Set_Frequency" = ?
+                    ,"Act_Frequency" = ?
+                    ,"Duration_Date" = ?
+                    ,"Reset_Date" = ?
+                WHERE PMMKEY = ?""", request.POST["warning_type"], request.POST["set_frequency"],
+                request.POST["actual_frequency"],request.POST["fdate"],str(datetime.datetime.now().date()), request.POST["PMMKEY"])
+            cursor.commit()
+
+        elif request.POST["submit"] == "Delete":
+            cursor.execute(
+                    """
+                    DELETE FROM [TT].[dbo].[Tool_Maintainance]
+                    WHERE PMMKEY = ?""", request.POST["PMMKEY"])
+            cursor.commit()
+
+
+    tools_details = cursor.execute(
+        """ SELECT [Tool_ID] FROM [TT].[dbo].[Tools_Master]"""
+    )
+    tools_details_data = [obj[0] for obj in tools_details]
+
+
+    tool_maintenance_details = cursor.execute(
+        """SELECT *
+        FROM [TT].[dbo].[Tool_Maintainance]""")
+
+    tool_maintenance_data = [{
+        "PK_Code": obj[0], "Line_Code": obj[1], "Tool_ID": obj[2], "Warning_Type": obj[3], "Set_Frequency": obj[4],
+        "Act_Frequency": obj[5], "Duration_Date": obj[6], "Created_Date": obj[7], "Reset_Date": obj[8],
+        "Warning_Status": obj[9]
+    } for obj in tool_maintenance_details]
+
+    return render(request, 'tool_maintenance.html', {"tools_details_data":tools_details_data,"tool_maintenance_data": tool_maintenance_data})
+
+
+def tool_traceability_list(request):
+    cursor = db_connection()
+    Tool_Traceability_list = cursor.execute(
+        "SELECT * FROM[TT].[dbo].[Tool_Traceability_list]")
+
+    Tool_Traceability_list_data = [{
+        "Operator_Code": obj[0],"Tool_ID": obj[1], "Pro_Type_Code": obj[2]
+    } for obj in Tool_Traceability_list]
+    return render(request, 'tool_traceability.html', {"Tool_Traceability_list_data":Tool_Traceability_list_data})
 
 def employee(request):
     cursor = db_connection()
@@ -619,16 +722,16 @@ def Q_Loss(cursor, request, Q_method):
         return {"level_1_data": l1_data, "level_2_data": l2_data}
 
 
-def DMS_App_Home():
-    pass
+def dms_app(request):
+    cursor = db_connection()
+    q_loss_details = cursor.execute(
+        "SELECT * FROM[TT].[dbo].[DMS_Q_Loss_Update]")
 
-
-def DMS_App_Fab():
-    pass
-
-
-def DMS_App_update():
-    pass
+    q_loss_details_list = [{
+        "PMMKEY": obj[0], "TPL_No": obj[1], "FAB_No": obj[2], "Station": obj[3],"Process_desc": obj[4],"Level_1":obj[11],"Level_2":obj[12]
+    } for obj in q_loss_details]
+    levels = {}
+    return render(request, 'dms_app.html',{'q_loss_details_list':q_loss_details_list, 'levels':levels})
 
 
 def alpha_line(request):
@@ -2226,3 +2329,13 @@ def cleco_tool(cursor, station_id, tool_id):
 
 
     return data
+
+
+
+def digital_tool(cursor, station_id,tool_id):
+    station = station_id
+    tool_id = tool_id
+
+    tool_desc = tool_id.split("-")
+
+
